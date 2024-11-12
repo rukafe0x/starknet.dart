@@ -7,11 +7,18 @@ import 'package:starknet_provider/starknet_provider.dart';
 part 'deploy_account_transaction.freezed.dart';
 part 'deploy_account_transaction.g.dart';
 
+const String DEPLOY_ACCOUNT_TXN_V1 = '0x1';
+const String DEPLOY_ACCOUNT_TXN_V3 = '0x3';
+const String DEPLOY_ACCOUNT_TXN_V1_OLD_COMPAT = '0x01';
+const String DEPLOY_ACCOUNT_TXN_V3_OLD_COMPAT = '0x03';
+
 abstract class DeployAccountTransaction {
   factory DeployAccountTransaction.fromJson(Map<String, Object?> json) =>
       switch (json['version']) {
-        '0x01' => DeployAccountTransactionV1.fromJson(json),
-        '0x03' => DeployAccountTransactionV3.fromJson(json),
+        DEPLOY_ACCOUNT_TXN_V1 || DEPLOY_ACCOUNT_TXN_V1_OLD_COMPAT =>
+          DeployAccountTransactionV1.fromJson(json),
+        DEPLOY_ACCOUNT_TXN_V3 || DEPLOY_ACCOUNT_TXN_V3_OLD_COMPAT =>
+          DeployAccountTransactionV3.fromJson(json),
         _ => throw Exception("Unsupported version ${json['version']}"),
       };
 
@@ -29,7 +36,7 @@ class DeployAccountTransactionV1
     required Felt contractAddressSalt,
     required List<Felt> constructorCalldata,
     required Felt classHash,
-    @Default('0x1')
+    @Default(DEPLOY_ACCOUNT_TXN_V1)
     String version, //Use 0x1 instead of 0x01 for devnet compatibility
     @Default('DEPLOY_ACCOUNT') String type,
   }) = _DeployAccountTransactionV1;
@@ -44,7 +51,7 @@ class DeployAccountTransactionV3
     implements DeployAccountTransaction {
   const factory DeployAccountTransactionV3({
     @Default('DEPLOY_ACCOUNT') String type,
-    @Default('0x3') String version,
+    @Default(DEPLOY_ACCOUNT_TXN_V3) String version,
     required Felt classHash,
     required List<Felt> constructorCalldata,
     required Felt contractAddressSalt,

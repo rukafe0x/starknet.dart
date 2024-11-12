@@ -347,7 +347,7 @@ class _$InvokeTransactionV0Impl implements _InvokeTransactionV0 {
   const _$InvokeTransactionV0Impl(
       {this.type = 'INVOKE',
       @JsonKey(toJson: maxFeeToJson) required this.maxFee,
-      this.version = '0x00',
+      this.version = INVOKE_TXN_V0,
       required final List<Felt> signature,
       required this.contractAddress,
       required this.entryPointSelector,
@@ -653,7 +653,7 @@ class _$InvokeTransactionV1Impl implements _InvokeTransactionV1 {
       required this.nonce,
       required this.senderAddress,
       required final List<Felt> calldata,
-      this.version = '0x1',
+      this.version = INVOKE_TXN_V1,
       this.type = 'INVOKE'})
       : _signature = signature,
         _calldata = calldata;
@@ -1027,7 +1027,7 @@ class _$InvokeTransactionV3Impl implements _InvokeTransactionV3 {
       required this.senderAddress,
       required final List<Felt> signature,
       required this.tip,
-      this.version = '0x3'})
+      this.version = INVOKE_TXN_V3})
       : _accountDeploymentData = accountDeploymentData,
         _calldata = calldata,
         _paymasterData = paymasterData,

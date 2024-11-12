@@ -20,7 +20,7 @@ _$DeployAccountTransactionV1Impl _$$DeployAccountTransactionV1ImplFromJson(
           .map((e) => Felt.fromJson(e as String))
           .toList(),
       classHash: Felt.fromJson(json['class_hash'] as String),
-      version: json['version'] as String? ?? '0x1',
+      version: json['version'] as String? ?? DEPLOY_ACCOUNT_TXN_V1,
       type: json['type'] as String? ?? 'DEPLOY_ACCOUNT',
     );
 
@@ -42,7 +42,7 @@ _$DeployAccountTransactionV3Impl _$$DeployAccountTransactionV3ImplFromJson(
         Map<String, dynamic> json) =>
     _$DeployAccountTransactionV3Impl(
       type: json['type'] as String? ?? 'DEPLOY_ACCOUNT',
-      version: json['version'] as String? ?? '0x3',
+      version: json['version'] as String? ?? DEPLOY_ACCOUNT_TXN_V3,
       classHash: Felt.fromJson(json['class_hash'] as String),
       constructorCalldata: (json['constructor_calldata'] as List<dynamic>)
           .map((e) => Felt.fromJson(e as String))

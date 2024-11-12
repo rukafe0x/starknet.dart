@@ -45,18 +45,14 @@ class Signer {
       throw Exception("Resource bounds for l2_gas must not be null");
     }
 
-    Felt l1GasMaxAmount = Felt(BigInt.parse(
-        resourceBounds['l1_gas']!.maxAmount.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l1GasMaxPricePerUnit = Felt(BigInt.parse(
-        resourceBounds['l1_gas']!.maxPricePerUnit.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l2GasMaxAmount = Felt(BigInt.parse(
-        resourceBounds['l2_gas']!.maxAmount.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l2GasMaxPricePerUnit = Felt(BigInt.parse(
-        resourceBounds['l2_gas']!.maxPricePerUnit.replaceFirst('0x', ''),
-        radix: 16));
+    Felt l1GasMaxAmount =
+        Felt.fromHexString(resourceBounds['l1_gas']!.maxAmount);
+    Felt l1GasMaxPricePerUnit =
+        Felt.fromHexString(resourceBounds['l1_gas']!.maxPricePerUnit);
+    Felt l2GasMaxAmount =
+        Felt.fromHexString(resourceBounds['l2_gas']!.maxAmount);
+    Felt l2GasMaxPricePerUnit =
+        Felt.fromHexString(resourceBounds['l2_gas']!.maxPricePerUnit);
 
     Felt l1GasBounds = (Felt.fromString("L1_GAS") << (128 + 64)) +
         (l1GasMaxAmount << 128) +
@@ -86,7 +82,6 @@ class Signer {
     ];
 
     final transactionHash = poseidonHasher.hashMany(elementsToHash);
-    print("transactionHash: ${Felt(transactionHash).toHexString()}");
 
     final signature = starknet_sign(
       privateKey: privateKey.toBigInt(),
@@ -124,7 +119,6 @@ class Signer {
       chainId: chainId.toBigInt(),
       additionalData: [nonce.toBigInt()],
     );
-    print("transactionHash: ${Felt(transactionHash).toHexString()}");
 
     final signature = starknet_sign(
       privateKey: privateKey.toBigInt(),
@@ -186,7 +180,6 @@ class Signer {
   }) {
     switch (version) {
       case 0:
-        print("Signing invoke transaction v0");
         return signInvokeTransactionsV0(
           transactions: transactions,
           contractAddress: contractAddress,
@@ -196,7 +189,6 @@ class Signer {
           maxFee: maxFee,
         );
       case 1:
-        print("Signing invoke transaction v1");
         return signInvokeTransactionsV1(
             transactions: transactions,
             senderAddress: contractAddress,
@@ -205,7 +197,6 @@ class Signer {
             maxFee: maxFee,
             useLegacyCalldata: useLegacyCalldata);
       case 3:
-        print("Signing invoke transaction v3");
         resourceBounds ??= {};
         accountDeploymentData ??= [];
         paymasterData ??= [];
@@ -315,11 +306,13 @@ class Signer {
     BigInt? tip,
     String? feeDataAvailabilityMode,
     String? nonceDataAvailabilityMode,
+    String? version,
   }) {
     classHash ??= Felt(compiledContract.classHash());
     tip ??= BigInt.from(0);
     feeDataAvailabilityMode ??= 'L1';
     nonceDataAvailabilityMode ??= 'L1';
+    version ??= "03";
 
     if ((compiledClassHash == null) && (casmCompiledContract == null)) {
       throw Exception(
@@ -328,18 +321,14 @@ class Signer {
     }
     compiledClassHash ??= Felt(casmCompiledContract!.classHash());
 
-    Felt l1GasMaxAmount = Felt(BigInt.parse(
-        resourceBounds['l1_gas']!.maxAmount.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l1GasMaxPricePerUnit = Felt(BigInt.parse(
-        resourceBounds['l1_gas']!.maxPricePerUnit.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l2GasMaxAmount = Felt(BigInt.parse(
-        resourceBounds['l2_gas']!.maxAmount.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l2GasMaxPricePerUnit = Felt(BigInt.parse(
-        resourceBounds['l2_gas']!.maxPricePerUnit.replaceFirst('0x', ''),
-        radix: 16));
+    Felt l1GasMaxAmount =
+        Felt.fromHexString(resourceBounds['l1_gas']!.maxAmount);
+    Felt l1GasMaxPricePerUnit =
+        Felt.fromHexString(resourceBounds['l1_gas']!.maxPricePerUnit);
+    Felt l2GasMaxAmount =
+        Felt.fromHexString(resourceBounds['l2_gas']!.maxAmount);
+    Felt l2GasMaxPricePerUnit =
+        Felt.fromHexString(resourceBounds['l2_gas']!.maxPricePerUnit);
 
     Felt l1GasBounds = (Felt.fromString("L1_GAS") << (128 + 64)) +
         (l1GasMaxAmount << 128) +
@@ -355,7 +344,7 @@ class Signer {
 
     final List<BigInt> elementsToHash = [
       TransactionHashPrefix.declare.toBigInt(),
-      BigInt.from(3), // version
+      BigInt.parse(version, radix: 16), // version
       senderAddress.toBigInt(),
       poseidonHasher
           .hashMany([tip, l1GasBounds.toBigInt(), l2GasBounds.toBigInt()]),
@@ -370,7 +359,6 @@ class Signer {
     ];
 
     final transactionHash = poseidonHasher.hashMany(elementsToHash);
-    print("transactionHash: ${Felt(transactionHash).toHexString()}");
 
     final signature = starknet_sign(
       privateKey: privateKey.toBigInt(),
@@ -449,18 +437,14 @@ class Signer {
     print(
         "[signDeployAccountTransactionV3] Contract address: ${contractAddress.toHexString()}");
 
-    Felt l1GasMaxAmount = Felt(BigInt.parse(
-        resourceBounds['l1_gas']!.maxAmount.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l1GasMaxPricePerUnit = Felt(BigInt.parse(
-        resourceBounds['l1_gas']!.maxPricePerUnit.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l2GasMaxAmount = Felt(BigInt.parse(
-        resourceBounds['l2_gas']!.maxAmount.replaceFirst('0x', ''),
-        radix: 16));
-    Felt l2GasMaxPricePerUnit = Felt(BigInt.parse(
-        resourceBounds['l2_gas']!.maxPricePerUnit.replaceFirst('0x', ''),
-        radix: 16));
+    Felt l1GasMaxAmount =
+        Felt.fromHexString(resourceBounds['l1_gas']!.maxAmount);
+    Felt l1GasMaxPricePerUnit =
+        Felt.fromHexString(resourceBounds['l1_gas']!.maxPricePerUnit);
+    Felt l2GasMaxAmount =
+        Felt.fromHexString(resourceBounds['l2_gas']!.maxAmount);
+    Felt l2GasMaxPricePerUnit =
+        Felt.fromHexString(resourceBounds['l2_gas']!.maxPricePerUnit);
 
     Felt l1GasBounds = (Felt.fromString("L1_GAS") << (128 + 64)) +
         (l1GasMaxAmount << 128) +
@@ -491,7 +475,6 @@ class Signer {
     ];
 
     final transactionHash = poseidonHasher.hashMany(elementsToHash);
-    print("transactionHash: ${Felt(transactionHash).toHexString()}");
 
     final signature = starknet_sign(
       privateKey: privateKey.toBigInt(),

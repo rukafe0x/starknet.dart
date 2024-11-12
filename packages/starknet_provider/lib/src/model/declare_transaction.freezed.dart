@@ -364,7 +364,7 @@ class __$$DeclareTransactionV1ImplCopyWithImpl<$Res>
 class _$DeclareTransactionV1Impl implements _DeclareTransactionV1 {
   const _$DeclareTransactionV1Impl(
       {this.type = 'DECLARE',
-      this.version = '0x1',
+      this.version = DECLARE_TXN_V1,
       required this.max_fee,
       required this.nonce,
       required final List<Felt> signature,
@@ -692,7 +692,7 @@ class __$$DeclareTransactionV2ImplCopyWithImpl<$Res>
 class _$DeclareTransactionV2Impl implements _DeclareTransactionV2 {
   const _$DeclareTransactionV2Impl(
       {this.type = 'DECLARE',
-      this.version = '0x2',
+      this.version = DECLARE_TXN_V2,
       required this.max_fee,
       required this.nonce,
       required final List<Felt> signature,
@@ -1095,7 +1095,7 @@ class __$$DeclareTransactionV3ImplCopyWithImpl<$Res>
 class _$DeclareTransactionV3Impl implements _DeclareTransactionV3 {
   const _$DeclareTransactionV3Impl(
       {this.type = 'DECLARE',
-      this.version = '0x3',
+      this.version = DECLARE_TXN_V3,
       required final List<Felt> accountDeploymentData,
       required this.compiledClassHash,
       required this.contractClass,

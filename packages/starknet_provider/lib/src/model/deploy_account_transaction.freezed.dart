@@ -28,7 +28,8 @@ mixin _$DeployAccountTransactionV1 {
   Felt get contractAddressSalt => throw _privateConstructorUsedError;
   List<Felt> get constructorCalldata => throw _privateConstructorUsedError;
   Felt get classHash => throw _privateConstructorUsedError;
-  String get version => throw _privateConstructorUsedError;
+  String get version =>
+      throw _privateConstructorUsedError; //Use 0x1 instead of 0x01 for devnet compatibility
   String get type => throw _privateConstructorUsedError;
 
   /// Serializes this DeployAccountTransactionV1 to a JSON map.
@@ -212,7 +213,7 @@ class _$DeployAccountTransactionV1Impl implements _DeployAccountTransactionV1 {
       required this.contractAddressSalt,
       required final List<Felt> constructorCalldata,
       required this.classHash,
-      this.version = '0x1',
+      this.version = DEPLOY_ACCOUNT_TXN_V1,
       this.type = 'DEPLOY_ACCOUNT'})
       : _signature = signature,
         _constructorCalldata = constructorCalldata;
@@ -250,6 +251,7 @@ class _$DeployAccountTransactionV1Impl implements _DeployAccountTransactionV1 {
   @override
   @JsonKey()
   final String version;
+//Use 0x1 instead of 0x01 for devnet compatibility
   @override
   @JsonKey()
   final String type;
@@ -337,7 +339,7 @@ abstract class _DeployAccountTransactionV1
   @override
   Felt get classHash;
   @override
-  String get version;
+  String get version; //Use 0x1 instead of 0x01 for devnet compatibility
   @override
   String get type;
 
@@ -356,18 +358,6 @@ DeployAccountTransactionV3 _$DeployAccountTransactionV3FromJson(
 
 /// @nodoc
 mixin _$DeployAccountTransactionV3 {
-// chain_id	FieldElement
-// class_hash	FieldElement
-// constructor_calldata	List<FieldElement>
-// contract_address_salt	FieldElement
-// fee_data_availability_mode	FieldElement
-// nonce	FieldElement
-// nonce_data_availability_mode	FieldElement
-// paymaster_data	List<FieldElement>
-// resource_bounds	Dict[Resource, ResourceBounds]
-// signature	List<`FieldElement>`
-// tip	FieldElement
-// version	FieldElement
   String get type => throw _privateConstructorUsedError;
   String get version => throw _privateConstructorUsedError;
   Felt get classHash => throw _privateConstructorUsedError;
@@ -606,7 +596,7 @@ class __$$DeployAccountTransactionV3ImplCopyWithImpl<$Res>
 class _$DeployAccountTransactionV3Impl implements _DeployAccountTransactionV3 {
   const _$DeployAccountTransactionV3Impl(
       {this.type = 'DEPLOY_ACCOUNT',
-      this.version = '0x3',
+      this.version = DEPLOY_ACCOUNT_TXN_V3,
       required this.classHash,
       required final List<Felt> constructorCalldata,
       required this.contractAddressSalt,
@@ -626,18 +616,6 @@ class _$DeployAccountTransactionV3Impl implements _DeployAccountTransactionV3 {
           Map<String, dynamic> json) =>
       _$$DeployAccountTransactionV3ImplFromJson(json);
 
-// chain_id	FieldElement
-// class_hash	FieldElement
-// constructor_calldata	List<FieldElement>
-// contract_address_salt	FieldElement
-// fee_data_availability_mode	FieldElement
-// nonce	FieldElement
-// nonce_data_availability_mode	FieldElement
-// paymaster_data	List<FieldElement>
-// resource_bounds	Dict[Resource, ResourceBounds]
-// signature	List<`FieldElement>`
-// tip	FieldElement
-// version	FieldElement
   @override
   @JsonKey()
   final String type;
@@ -777,18 +755,6 @@ abstract class _DeployAccountTransactionV3
   factory _DeployAccountTransactionV3.fromJson(Map<String, dynamic> json) =
       _$DeployAccountTransactionV3Impl.fromJson;
 
-// chain_id	FieldElement
-// class_hash	FieldElement
-// constructor_calldata	List<FieldElement>
-// contract_address_salt	FieldElement
-// fee_data_availability_mode	FieldElement
-// nonce	FieldElement
-// nonce_data_availability_mode	FieldElement
-// paymaster_data	List<FieldElement>
-// resource_bounds	Dict[Resource, ResourceBounds]
-// signature	List<`FieldElement>`
-// tip	FieldElement
-// version	FieldElement
   @override
   String get type;
   @override

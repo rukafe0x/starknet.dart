@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:math';
 
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:bip39/bip39.dart' as bip39;
@@ -11,6 +12,24 @@ enum AccountSupportedTxVersion {
   v0,
   v1,
   v3,
+}
+
+/// Represents fee estimation results
+class FeeEstimations {
+  final Felt maxAmount;
+  final Felt maxPricePerUnit;
+  final String unit;
+  final Felt maxFee; // for v2 and legacy transaction versions
+
+  const FeeEstimations({
+    required this.maxAmount,
+    required this.maxPricePerUnit,
+    required this.unit,
+    required this.maxFee,
+  });
+
+  // Allows the FeeEstimate to be used anywhere a Felt is expected
+  //Felt operator Felt() => maxAmount;
 }
 
 /// Account abstraction class
@@ -45,70 +64,161 @@ class Account {
   }
 
   /// Get Estimate max fee for Invoke Tx
-  Future<Felt> getEstimateMaxFeeForInvokeTx({
-    BlockId blockId = BlockId.latest,
-    String version = "0x1",
-    required List<FunctionCall> functionCalls,
-    bool useLegacyCalldata = false,
-    required Felt nonce,
-    double feeMultiplier = 1.2,
-  }) async {
+  Future<FeeEstimations> getEstimateMaxFeeForInvokeTx(
+      {BlockId blockId = BlockId.latest,
+      String version = "0x1",
+      required List<FunctionCall> functionCalls,
+      bool useLegacyCalldata = false,
+      Felt? nonce,
+      double feeMultiplier = 1.2,
+      bool? useSTRKFee}) async {
+    nonce = nonce ?? await getNonce();
+
+    // These values are for future use (until then they are empty or zero)
+    List<Felt> accountDeploymentData = [];
+    List<Felt> paymasterData = [];
+    BigInt tip = BigInt.from(0);
+    String feeDataAvailabilityMode = 'L1';
+    String nonceDataAvailabilityMode = 'L1';
+    Map<String, ResourceBounds> resourceBounds =
+        getResourceBounds(Felt.zero, Felt.zero);
+
+    if (useSTRKFee ?? false) {
+      supportedTxVersion = AccountSupportedTxVersion.v3;
+    }
+
     final signature = signer.signTransactions(
       transactions: functionCalls,
       contractAddress: accountAddress,
-      version: supportedTxVersion == AccountSupportedTxVersion.v1 ? 1 : 0,
+      version: supportedTxVersion == AccountSupportedTxVersion.v3
+          ? 3
+          : supportedTxVersion == AccountSupportedTxVersion.v1
+              ? 1
+              : 0,
       chainId: chainId,
       entryPointSelectorName: "__execute__",
-      nonce: nonce,
+      nonce: nonce!,
       useLegacyCalldata: useLegacyCalldata,
+      resourceBounds: resourceBounds,
+      accountDeploymentData: accountDeploymentData,
+      paymasterData: paymasterData,
+      tip: tip,
+      feeDataAvailabilityMode: feeDataAvailabilityMode,
+      nonceDataAvailabilityMode: nonceDataAvailabilityMode,
     );
 
     BroadcastedTxn broadcastedTxn;
 
-    if (version == "0x1") {
-      final calldata = functionCallsToCalldata(
-        functionCalls: functionCalls,
-        useLegacyCalldata: useLegacyCalldata,
-      );
-      broadcastedTxn = BroadcastedInvokeTxnV1(
+    final calldata = functionCallsToCalldata(
+      functionCalls: functionCalls,
+      useLegacyCalldata: useLegacyCalldata,
+    );
+
+    switch (supportedTxVersion) {
+      case AccountSupportedTxVersion.v3:
+        broadcastedTxn = BroadcastedInvokeTxnV3(
           type: "INVOKE",
-          maxFee: defaultMaxFee,
-          version: version,
+          version: '0x3',
           signature: signature,
           nonce: nonce,
+          accountDeploymentData: accountDeploymentData,
+          calldata: calldata,
+          feeDataAvailabilityMode: feeDataAvailabilityMode,
+          nonceDataAvailabilityMode: nonceDataAvailabilityMode,
+          paymasterData: paymasterData,
+          resourceBounds: resourceBounds,
           senderAddress: accountAddress,
-          calldata: calldata);
-    } else {
-      final calldata =
-          functionCallsToCalldataLegacy(functionCalls: functionCalls) + [nonce];
-      broadcastedTxn = BroadcastedInvokeTxnV0(
-          type: "INVOKE",
-          maxFee: defaultMaxFee,
-          version: version,
-          signature: signature,
-          nonce: nonce,
-          contractAddress: accountAddress,
-          entryPointSelector: getSelectorByName('__execute__'),
-          calldata: calldata);
+          tip: '0x${tip.toRadixString(16)}',
+        );
+        break;
+      case AccountSupportedTxVersion.v1:
+        broadcastedTxn = BroadcastedInvokeTxnV1(
+            type: "INVOKE",
+            maxFee: defaultMaxFee,
+            version: version,
+            signature: signature,
+            nonce: nonce,
+            senderAddress: accountAddress,
+            calldata: calldata);
+        break;
+      default:
+        final calldata =
+            functionCallsToCalldataLegacy(functionCalls: functionCalls) +
+                [nonce];
+        broadcastedTxn = BroadcastedInvokeTxnV0(
+            type: "INVOKE",
+            maxFee: defaultMaxFee,
+            version: version,
+            signature: signature,
+            nonce: nonce,
+            contractAddress: accountAddress,
+            entryPointSelector: getSelectorByName('__execute__'),
+            calldata: calldata);
     }
 
-    final maxFee = await getMaxFeeFromBroadcastedTxn(
+    final estimatedMaxFees = await getMaxFeeFromBroadcastedTxn(
         broadcastedTxn, blockId, feeMultiplier);
 
-    return maxFee;
+    return estimatedMaxFees;
   }
 
   /// Get Estimate max fee for Declare Tx
-  Future<Felt> getEstimateMaxFeeForDeclareTx({
+  Future<FeeEstimations> getEstimateMaxFeeForDeclareTx({
     BlockId blockId = BlockId.latest,
-    String version = "0x1",
-    required Felt nonce,
+    Felt? nonce,
     required ICompiledContract compiledContract,
     double feeMultiplier = 1.2,
+    // needed for v3
+    BigInt? compiledClassHash,
+    CASMCompiledContract? casmCompiledContract,
+    bool? useSTRKFee = false,
   }) async {
     BroadcastedTxn broadcastedTxn;
 
-    if (compiledContract is DeprecatedCompiledContract) {
+    nonce = nonce ?? await getNonce();
+
+    if (useSTRKFee ?? false) {
+      // These values are for future use (until then they are empty or zero)
+      List<Felt> accountDeploymentData = [];
+      List<Felt> paymasterData = [];
+      BigInt tip = BigInt.from(0);
+      String feeDataAvailabilityMode = 'L1';
+      String nonceDataAvailabilityMode = 'L1';
+      Map<String, ResourceBounds> resourceBounds =
+          getResourceBounds(Felt.zero, Felt.zero);
+
+      final signature = signer.signDeclareTransactionV3(
+        compiledContract: compiledContract as CompiledContract,
+        senderAddress: accountAddress,
+        chainId: chainId,
+        nonce: nonce,
+        compiledClassHash: Felt(compiledClassHash!),
+        casmCompiledContract: casmCompiledContract,
+        resourceBounds: resourceBounds,
+        accountDeploymentData: accountDeploymentData,
+        paymasterData: paymasterData,
+        tip: tip,
+        feeDataAvailabilityMode: feeDataAvailabilityMode,
+        nonceDataAvailabilityMode: nonceDataAvailabilityMode,
+        version: "100000000000000000000000000000003",
+      );
+
+      broadcastedTxn = BroadcastedDeclareTxnV3(
+        type: "DECLARE",
+        version: "0x100000000000000000000000000000003",
+        signature: signature,
+        nonce: nonce,
+        accountDeploymentData: accountDeploymentData,
+        compiledClassHash: Felt(compiledClassHash),
+        contractClass: compiledContract.flatten(),
+        feeDataAvailabilityMode: feeDataAvailabilityMode,
+        nonceDataAvailabilityMode: nonceDataAvailabilityMode,
+        paymasterData: paymasterData,
+        resourceBounds: resourceBounds,
+        senderAddress: accountAddress,
+        tip: '0x${tip.toRadixString(16)}',
+      );
+    } else if (compiledContract is DeprecatedCompiledContract) {
       final signature = signer.signDeclareTransactionV1(
         compiledContract: compiledContract,
         senderAddress: accountAddress,
@@ -118,58 +228,156 @@ class Account {
       broadcastedTxn = BroadcastedDeclareTxn(
           type: "DECLARE",
           maxFee: defaultMaxFee,
-          version: version,
+          version: '0x1',
           signature: signature,
           nonce: nonce,
           contractClass: compiledContract.compress(),
           senderAddress: accountAddress);
     } else {
-      // V2 of BroadcastedDeclareTxn is not supported yet
-      return defaultMaxFee;
+      final signature = signer.signDeclareTransactionV2(
+        compiledContract: compiledContract as CompiledContract,
+        senderAddress: accountAddress,
+        chainId: chainId,
+        nonce: nonce,
+        compiledClassHash: compiledClassHash,
+        casmCompiledContract: casmCompiledContract,
+        maxFee: Felt.zero,
+      );
+      broadcastedTxn = BroadcastedDeclareTxnV2(
+        type: "DECLARE",
+        max_fee: Felt.zero
+            .toHexString(), // As String because devnet only supports 16 bytes and not a Felt
+        version: '0x2',
+        signature: signature,
+        nonce: nonce,
+        compiledClassHash: Felt(compiledClassHash!),
+        contractClass: compiledContract.flatten(),
+        senderAddress: accountAddress,
+      );
     }
 
-    final maxFee = await getMaxFeeFromBroadcastedTxn(
+    final estimatedMaxFees = await getMaxFeeFromBroadcastedTxn(
         broadcastedTxn, blockId, feeMultiplier);
 
-    return maxFee;
+    return estimatedMaxFees;
   }
 
   /// Get Estimate max fee for Deploy Tx
-  Future<Felt> getEstimateMaxFeeForDeployAccountTx({
+  Future<FeeEstimations> getEstimateMaxFeeForDeployAccountTx({
     BlockId blockId = BlockId.latest,
     String version = "0x1",
-    required Felt nonce,
+    Felt? nonce,
     required List<Felt> constructorCalldata,
-    required Felt contractAddressSalt,
+    Felt? contractAddressSalt,
     required Felt classHash,
     double feeMultiplier = 1.2,
+    required Signer signer,
+    required Provider provider,
+    bool? useSTRKFee,
+    Felt? contractAddress,
   }) async {
-    final signature = signer.signDeployAccountTransactionV1(
-      contractAddressSalt: contractAddressSalt,
-      classHash: classHash,
-      constructorCalldata: constructorCalldata,
-      chainId: chainId,
-      nonce: nonce,
-    );
+    BroadcastedTxn broadcastedTxn;
+    nonce = nonce ?? defaultNonce;
+    contractAddressSalt = contractAddressSalt ?? signer.publicKey;
 
-    final broadcastedTxn = BroadcastedDeployAccountTxn(
-        type: "DEPLOY_ACCOUNT",
-        version: version,
-        contractAddressSalt: contractAddressSalt,
-        constructorCalldata: constructorCalldata,
-        maxFee: defaultMaxFee,
+    if (useSTRKFee ?? false) {
+      contractAddress = contractAddress ?? Felt.zero;
+      // These values are for future use (until then they are empty or zero)
+      List<Felt> paymasterData = [];
+      BigInt tip = BigInt.from(0);
+      String feeDataAvailabilityMode = 'L1';
+      String nonceDataAvailabilityMode = 'L1';
+      Map<String, ResourceBounds> resourceBounds =
+          getResourceBounds(Felt.zero, Felt.zero);
+
+      final signature = signer.signDeployAccountTransactionV3(
+        contractAddress: contractAddress,
+        resourceBounds: resourceBounds,
+        tip: tip,
+        paymasterData: paymasterData,
+        chainId: chainId,
         nonce: nonce,
-        signature: signature,
-        classHash: classHash);
+        feeDataAvailabilityMode: feeDataAvailabilityMode,
+        nonceDataAvailabilityMode: nonceDataAvailabilityMode,
+        constructorCalldata: constructorCalldata,
+        classHash: classHash,
+        contractAddressSalt: contractAddressSalt,
+      );
 
-    final maxFee = await getMaxFeeFromBroadcastedTxn(
+      broadcastedTxn = BroadcastedDeployAccountTxnV3(
+        type: "DEPLOY_ACCOUNT",
+        version: '0x3',
+        signature: signature,
+        nonce: nonce,
+        classHash: classHash,
+        constructorCalldata: constructorCalldata,
+        contractAddressSalt: contractAddressSalt,
+        feeDataAvailabilityMode: feeDataAvailabilityMode,
+        nonceDataAvailabilityMode: nonceDataAvailabilityMode,
+        paymasterData: paymasterData,
+        resourceBounds: resourceBounds,
+        tip: '0x${tip.toRadixString(16)}',
+      );
+    } else {
+      final signature = signer.signDeployAccountTransactionV1(
+        contractAddressSalt: contractAddressSalt,
+        classHash: classHash,
+        constructorCalldata: constructorCalldata,
+        chainId: chainId,
+        nonce: nonce,
+      );
+
+      broadcastedTxn = BroadcastedDeployAccountTxn(
+          type: "DEPLOY_ACCOUNT",
+          version: version,
+          contractAddressSalt: contractAddressSalt,
+          constructorCalldata: constructorCalldata,
+          maxFee: defaultMaxFee,
+          nonce: nonce,
+          signature: signature,
+          classHash: classHash);
+    }
+
+    final estimatedMaxFees = await getMaxFeeFromBroadcastedTxn(
         broadcastedTxn, blockId, feeMultiplier);
+
+    return estimatedMaxFees;
+  }
+
+  /// Get Estimate max fee for Deploy Tx
+  Future<FeeEstimations> getEstimateMaxFeeForDeployTx({
+    required Felt classHash,
+    Felt? salt,
+    Felt? unique,
+    List<Felt>? calldata,
+    bool? useSTRKFee,
+  }) async {
+    salt ??= getSalt();
+    unique ??= Felt.fromInt(0);
+    calldata ??= [];
+    final List<Felt> params = [
+      classHash,
+      salt,
+      unique,
+      Felt.fromInt(calldata.length),
+      ...calldata,
+    ];
+
+    final maxFee = await account0.getEstimateMaxFeeForInvokeTx(functionCalls: [
+      FunctionCall(
+        contractAddress: udcAddress,
+        entryPointSelector: getSelectorByName("deployContract"),
+        calldata: params,
+      )
+    ], useSTRKFee: useSTRKFee);
 
     return maxFee;
   }
 
-  Future<Felt> getMaxFeeFromBroadcastedTxn(BroadcastedTxn broadcastedTxn,
-      BlockId blockId, double feeMultiplier) async {
+  Future<FeeEstimations> getMaxFeeFromBroadcastedTxn(
+      BroadcastedTxn broadcastedTxn,
+      BlockId blockId,
+      double feeMultiplier) async {
     EstimateFeeRequest estimateFeeRequest = EstimateFeeRequest(
       request: [broadcastedTxn],
       blockId: blockId,
@@ -185,12 +393,24 @@ class Account {
       error: (error) => throw Exception(error.message),
     );
 
-    final Felt overallFee = Felt.fromHexString(fee.overallFee);
-    //multiply by feeMultiplier
-    final Felt maxFee =
-        Felt.fromDouble(overallFee.toBigInt().toDouble() * feeMultiplier);
+    //calculated as described in https://community.starknet.io/t/starknet-v0-13-1-pre-release-notes/113664
+    //and multiplied by feeMultiplier
+    final overallFee =
+        BigInt.parse(fee.overallFee.replaceFirst('0x', ''), radix: 16)
+            .toDouble();
+    final gasPrice =
+        BigInt.parse(fee.gasPrice.replaceFirst('0x', ''), radix: 16).toDouble();
+    final Felt maxAmountFee =
+        Felt.fromDouble(feeMultiplier * overallFee / gasPrice);
+    final Felt maxPricePerUnit = Felt.fromDouble(feeMultiplier * gasPrice);
+    final Felt maxFee = Felt.fromDouble(feeMultiplier * overallFee);
 
-    return maxFee;
+    return FeeEstimations(
+      maxAmount: maxAmountFee,
+      maxPricePerUnit: maxPricePerUnit,
+      unit: fee.unit,
+      maxFee: maxFee,
+    );
   }
 
   /// Call account contract `__execute__` with given [functionCalls]
@@ -203,7 +423,8 @@ class Account {
     Felt? nonce,
     // needed for v3
     bool? useSTRKFee,
-    Map<String, ResourceBounds>? resourceBounds,
+    Felt? l1MaxAmount,
+    Felt? l1MaxPricePerUnit,
   }) async {
     nonce = nonce ?? await getNonce();
 
@@ -213,38 +434,24 @@ class Account {
     BigInt tip = BigInt.from(0);
     String feeDataAvailabilityMode = 'L1';
     String nonceDataAvailabilityMode = 'L1';
-    resourceBounds = resourceBounds ?? {};
-    useSTRKFee = useSTRKFee ?? false;
+    l1MaxAmount ??= Felt.zero;
+    l1MaxPricePerUnit ??= Felt.zero;
+    Map<String, ResourceBounds> resourceBounds =
+        getResourceBounds(l1MaxAmount, l1MaxPricePerUnit);
 
-    if (useSTRKFee) {
-      //change resourceBounds original strings with decimal numbers to string hex numbers (for example "10" -> "0xa")
-      resourceBounds!.forEach((key, value) {
-        // check string valuescan be converted to Felt decimal numbers before translate to hex
-        // if not then throw error with message "Resource bounds values must be valid Felt numbers
-        try {
-          Felt(BigInt.parse(value.maxAmount));
-          Felt(BigInt.parse(value.maxPricePerUnit));
-        } catch (e) {
-          throw Exception("Resource bounds values must be valid Felt numbers");
-        }
-        resourceBounds![key] = ResourceBounds(
-          maxAmount: '0x${BigInt.parse(value.maxAmount).toRadixString(16)}',
-          maxPricePerUnit:
-              '0x${BigInt.parse(value.maxPricePerUnit).toRadixString(16)}',
-        );
-      });
+    if (useSTRKFee ?? false) {
       supportedTxVersion = AccountSupportedTxVersion.v3;
-      maxFee = Felt.zero;
     } else {
       //maxFee only supported in v0 and v1
       maxFee = maxFee ??
-          await getEstimateMaxFeeForInvokeTx(
-              functionCalls: functionCalls,
-              useLegacyCalldata: useLegacyCalldata,
-              nonce: nonce,
-              version: supportedTxVersion == AccountSupportedTxVersion.v1
-                  ? "0x1"
-                  : "0x0");
+          (await getEstimateMaxFeeForInvokeTx(
+                  functionCalls: functionCalls,
+                  useLegacyCalldata: useLegacyCalldata,
+                  nonce: nonce,
+                  version: supportedTxVersion == AccountSupportedTxVersion.v1
+                      ? "0x1"
+                      : "0x0"))
+              .maxFee;
     }
 
     for (int attempt = 0; attempt < maxAttempts; attempt++) {
@@ -283,7 +490,7 @@ class Account {
                 contractAddress: accountAddress,
                 entryPointSelector: getSelectorByName('__execute__'),
                 calldata: calldata,
-                maxFee: maxFee,
+                maxFee: maxFee!,
                 signature: signature,
               ),
             ),
@@ -301,7 +508,7 @@ class Account {
                 senderAddress: accountAddress,
                 calldata: calldata,
                 signature: signature,
-                maxFee: maxFee,
+                maxFee: maxFee!,
                 nonce: nonce!,
               ),
             ),
@@ -378,12 +585,10 @@ class Account {
     BigInt? compiledClassHash,
     CASMCompiledContract? casmCompiledContract,
     bool? useSTRKFee = false,
-    Map<String, ResourceBounds>? resourceBounds,
+    Felt? l1MaxAmount,
+    Felt? l1MaxPricePerUnit,
   }) async {
     nonce = nonce ?? await getNonce();
-    maxFee = maxFee ??
-        await getEstimateMaxFeeForDeclareTx(
-            nonce: nonce, compiledContract: compiledContract);
 
     if (useSTRKFee ?? false) {
       // These values are for future use (until then they are empty or zero)
@@ -392,15 +597,10 @@ class Account {
       BigInt tip = BigInt.from(0);
       String feeDataAvailabilityMode = 'L1';
       String nonceDataAvailabilityMode = 'L1';
-      resourceBounds = resourceBounds ?? {};
-      //change resourceBounds original strings with decimal numbers to string hex numbers (for example "10" -> "0xa")
-      resourceBounds!.forEach((key, value) {
-        resourceBounds![key] = ResourceBounds(
-          maxAmount: '0x${BigInt.parse(value.maxAmount).toRadixString(16)}',
-          maxPricePerUnit:
-              '0x${BigInt.parse(value.maxPricePerUnit).toRadixString(16)}',
-        );
-      });
+      l1MaxAmount ??= Felt.zero;
+      l1MaxPricePerUnit ??= Felt.zero;
+      Map<String, ResourceBounds> resourceBounds =
+          getResourceBounds(l1MaxAmount, l1MaxPricePerUnit);
 
       final signature = signer.signDeclareTransactionV3(
         compiledContract: compiledContract as CompiledContract,
@@ -416,11 +616,12 @@ class Account {
         feeDataAvailabilityMode: feeDataAvailabilityMode,
         nonceDataAvailabilityMode: nonceDataAvailabilityMode,
       );
+
       return provider.addDeclareTransaction(
         DeclareTransactionRequest(
           declareTransaction: DeclareTransactionV3(
             accountDeploymentData: accountDeploymentData,
-            compiledClassHash: Felt(compiledClassHash!),
+            compiledClassHash: Felt(compiledClassHash),
             contractClass: compiledContract.flatten(),
             feeDataAvailabilityMode: feeDataAvailabilityMode,
             nonce: nonce,
@@ -435,6 +636,7 @@ class Account {
       );
     } else {
       if (compiledContract is DeprecatedCompiledContract) {
+        maxFee = maxFee ?? defaultMaxFee;
         final signature = signer.signDeclareTransactionV1(
           compiledContract: compiledContract,
           senderAddress: accountAddress,
@@ -455,6 +657,13 @@ class Account {
           ),
         );
       } else {
+        maxFee = maxFee ??
+            (await getEstimateMaxFeeForDeclareTx(
+                    nonce: nonce,
+                    compiledContract: compiledContract,
+                    compiledClassHash: compiledClassHash,
+                    casmCompiledContract: casmCompiledContract))
+                .maxFee;
         final signature = signer.signDeclareTransactionV2(
           compiledContract: compiledContract as CompiledContract,
           senderAddress: accountAddress,
@@ -491,15 +700,26 @@ class Account {
     Felt? salt,
     Felt? unique,
     List<Felt>? calldata,
+    Felt? maxFee,
     bool? useSTRKFee,
-    Map<String, ResourceBounds>? resourceBounds,
+    Felt? l1MaxAmount,
+    Felt? l1MaxPricePerUnit,
   }) async {
-    salt ??= Felt.fromInt(0);
+    salt ??= getSalt();
     unique ??= Felt.fromInt(0);
     calldata ??= [];
+    l1MaxAmount ??= Felt.zero;
+    l1MaxPricePerUnit ??= Felt.zero;
 
     final txHash = await Udc(account: this, address: udcAddress).deployContract(
-        classHash, salt, unique, calldata, useSTRKFee, resourceBounds);
+        classHash,
+        salt,
+        unique,
+        calldata,
+        maxFee,
+        useSTRKFee,
+        l1MaxAmount,
+        l1MaxPricePerUnit);
 
     final txReceipt = await account0.provider
         .getTransactionReceipt(Felt.fromHexString(txHash));
@@ -558,7 +778,8 @@ class Account {
     Felt? maxFee,
     Felt? nonce,
     bool? useSTRKFee,
-    Map<String, ResourceBounds>? resourceBounds,
+    Felt? l1MaxAmount,
+    Felt? l1MaxPricePerUnit,
     Felt? contractAddress,
   }) async {
     final chainId = (await provider.chainId()).when(
@@ -577,15 +798,10 @@ class Account {
       BigInt tip = BigInt.from(0);
       String feeDataAvailabilityMode = 'L1';
       String nonceDataAvailabilityMode = 'L1';
-      resourceBounds = resourceBounds ?? {};
-      //change resourceBounds original strings with decimal numbers to string hex numbers (for example "10" -> "0xa")
-      resourceBounds!.forEach((key, value) {
-        resourceBounds![key] = ResourceBounds(
-          maxAmount: '0x${BigInt.parse(value.maxAmount).toRadixString(16)}',
-          maxPricePerUnit:
-              '0x${BigInt.parse(value.maxPricePerUnit).toRadixString(16)}',
-        );
-      });
+      l1MaxAmount ??= Felt.zero;
+      l1MaxPricePerUnit ??= Felt.zero;
+      Map<String, ResourceBounds> resourceBounds =
+          getResourceBounds(l1MaxAmount, l1MaxPricePerUnit);
 
       final signature = signer.signDeployAccountTransactionV3(
         contractAddress: contractAddress,
@@ -667,6 +883,40 @@ class Account {
       signer: signer,
       chainId: chainId,
     );
+  }
+
+  // Function to generate a resourceBounds map from a maxAmount and a maxPricePerUnit
+  static Map<String, ResourceBounds> getResourceBounds(
+      Felt l1MaxAmount, Felt l1MaxPricePerUnit) {
+    return {
+      'l1_gas': ResourceBounds(
+          maxAmount: l1MaxAmount.toHexString(),
+          maxPricePerUnit: l1MaxPricePerUnit.toHexString()),
+      'l2_gas': ResourceBounds(maxAmount: '0x0', maxPricePerUnit: '0x0'),
+    };
+  }
+
+  /// Generates a random salt for contract deployment
+  /// TODO: Consider using a more secure random number generator if needed
+  static Felt getSalt() {
+    // In the secure_random package, the random generation is multiplied many times
+    // https://github.com/mingchen/secure_random/blob/master/lib/secure_random.dart
+    // It *should* improve randomness, but it is still not 100% bullet proof
+
+    // On the other hand, xrandom seems to be a better implementation:
+    // https://pub.dev/packages/xrandom
+    final prime = BigInt.parse(
+        '800000000000011000000000000000000000000000000000000000000000001',
+        radix: 16);
+
+    final rand = Random();
+    final bytes = [for (int i = 0; i < 32; i++) rand.nextInt(256)];
+    final randomBigInt = bytes.fold<BigInt>(
+      BigInt.zero,
+      (prev, byte) => (prev << 8) | BigInt.from(byte),
+    );
+    final salt = Felt(randomBigInt % prime);
+    return salt;
   }
 }
 

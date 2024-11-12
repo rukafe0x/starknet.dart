@@ -23,7 +23,7 @@ _$DeclareTransactionV1Impl _$$DeclareTransactionV1ImplFromJson(
         Map<String, dynamic> json) =>
     _$DeclareTransactionV1Impl(
       type: json['type'] as String? ?? 'DECLARE',
-      version: json['version'] as String? ?? '0x1',
+      version: json['version'] as String? ?? DECLARE_TXN_V1,
       max_fee: Felt.fromJson(json['max_fee'] as String),
       nonce: Felt.fromJson(json['nonce'] as String),
       signature: (json['signature'] as List<dynamic>)
@@ -50,7 +50,7 @@ _$DeclareTransactionV2Impl _$$DeclareTransactionV2ImplFromJson(
         Map<String, dynamic> json) =>
     _$DeclareTransactionV2Impl(
       type: json['type'] as String? ?? 'DECLARE',
-      version: json['version'] as String? ?? '0x2',
+      version: json['version'] as String? ?? DECLARE_TXN_V2,
       max_fee: json['max_fee'] as String,
       nonce: Felt.fromJson(json['nonce'] as String),
       signature: (json['signature'] as List<dynamic>)
@@ -79,7 +79,7 @@ _$DeclareTransactionV3Impl _$$DeclareTransactionV3ImplFromJson(
         Map<String, dynamic> json) =>
     _$DeclareTransactionV3Impl(
       type: json['type'] as String? ?? 'DECLARE',
-      version: json['version'] as String? ?? '0x3',
+      version: json['version'] as String? ?? DECLARE_TXN_V3,
       accountDeploymentData: (json['account_deployment_data'] as List<dynamic>)
           .map((e) => Felt.fromJson(e as String))
           .toList(),

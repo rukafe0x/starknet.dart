@@ -52,11 +52,11 @@ class Contract {
   Future<InvokeTransactionResponse> execute({
     required String selector,
     required List<Felt> calldata,
+    Felt? maxFee,
     bool? useSTRKFee,
-    Map<String, ResourceBounds>? resourceBounds,
+    Felt? l1MaxAmount,
+    Felt? l1MaxPricePerUnit,
   }) async {
-    final Felt maxFee = defaultMaxFee;
-
     final trx = await account.execute(
       functionCalls: [
         FunctionCall(
@@ -67,7 +67,8 @@ class Contract {
       ],
       maxFee: maxFee,
       useSTRKFee: useSTRKFee,
-      resourceBounds: resourceBounds,
+      l1MaxAmount: l1MaxAmount,
+      l1MaxPricePerUnit: l1MaxPricePerUnit,
     );
     return trx;
   }

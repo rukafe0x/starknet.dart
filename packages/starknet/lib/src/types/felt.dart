@@ -47,6 +47,18 @@ class Felt {
     return result;
   }
 
+  //define * operator
+  Felt operator *(Felt other) {
+    Felt result = Felt(_bigInt * other._bigInt);
+    return result;
+  }
+
+  //define / operator
+  Felt operator /(Felt other) {
+    Felt result = Felt(_bigInt ~/ other._bigInt);
+    return result;
+  }
+
   Felt(this._bigInt) {
     if (_bigInt >= prime) {
       throw ArgumentError('Value must be smaller than 2^251 + 17 * 2^192 + 1');

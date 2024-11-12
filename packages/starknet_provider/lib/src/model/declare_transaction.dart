@@ -8,6 +8,9 @@ part 'declare_transaction.g.dart';
 const String DECLARE_TXN_V1 = '0x1';
 const String DECLARE_TXN_V2 = '0x2';
 const String DECLARE_TXN_V3 = '0x3';
+const String DECLARE_TXN_V1_OLD_COMPAT = '0x01';
+const String DECLARE_TXN_V2_OLD_COMPAT = '0x02';
+const String DECLARE_TXN_V3_OLD_COMPAT = '0x03';
 
 @freezed
 class DeclareTransactionRequest with _$DeclareTransactionRequest {
@@ -22,11 +25,11 @@ class DeclareTransactionRequest with _$DeclareTransactionRequest {
 abstract class DeclareTransaction {
   factory DeclareTransaction.fromJson(Map<String, Object?> json) {
     switch (json['version']) {
-      case DECLARE_TXN_V1:
+      case DECLARE_TXN_V1 || DECLARE_TXN_V1_OLD_COMPAT:
         return DeclareTransactionV1.fromJson(json);
-      case DECLARE_TXN_V2:
+      case DECLARE_TXN_V2 || DECLARE_TXN_V2_OLD_COMPAT:
         return DeclareTransactionV2.fromJson(json);
-      case DECLARE_TXN_V3:
+      case DECLARE_TXN_V3 || DECLARE_TXN_V3_OLD_COMPAT:
         return DeclareTransactionV3.fromJson(json);
       default:
         throw ArgumentError(
@@ -43,7 +46,7 @@ class DeclareTransactionV1
     implements DeclareTransaction {
   const factory DeclareTransactionV1({
     @Default('DECLARE') String type,
-    @Default('0x1') String version,
+    @Default(DECLARE_TXN_V1) String version,
     required Felt max_fee,
     required Felt nonce,
     required List<Felt> signature,
@@ -61,7 +64,7 @@ class DeclareTransactionV2
     implements DeclareTransaction {
   const factory DeclareTransactionV2({
     @Default('DECLARE') String type,
-    @Default('0x2') String version,
+    @Default(DECLARE_TXN_V2) String version,
     required String
         max_fee, // As String because devnet only supports 16 bytes and not a Felt
     required Felt nonce,
@@ -81,7 +84,7 @@ class DeclareTransactionV3
     implements DeclareTransaction {
   const factory DeclareTransactionV3({
     @Default('DECLARE') String type,
-    @Default('0x3') String version,
+    @Default(DECLARE_TXN_V3) String version,
     required List<Felt> accountDeploymentData,
     required Felt compiledClassHash,
     required FlattenSierraContractClass contractClass,

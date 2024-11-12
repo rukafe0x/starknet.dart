@@ -24,7 +24,7 @@ _$InvokeTransactionV0Impl _$$InvokeTransactionV0ImplFromJson(
     _$InvokeTransactionV0Impl(
       type: json['type'] as String? ?? 'INVOKE',
       maxFee: Felt.fromJson(json['max_fee'] as String),
-      version: json['version'] as String? ?? '0x00',
+      version: json['version'] as String? ?? INVOKE_TXN_V0,
       signature: (json['signature'] as List<dynamic>)
           .map((e) => Felt.fromJson(e as String))
           .toList(),
@@ -59,7 +59,7 @@ _$InvokeTransactionV1Impl _$$InvokeTransactionV1ImplFromJson(
       calldata: (json['calldata'] as List<dynamic>)
           .map((e) => Felt.fromJson(e as String))
           .toList(),
-      version: json['version'] as String? ?? '0x1',
+      version: json['version'] as String? ?? INVOKE_TXN_V1,
       type: json['type'] as String? ?? 'INVOKE',
     );
 
@@ -100,7 +100,7 @@ _$InvokeTransactionV3Impl _$$InvokeTransactionV3ImplFromJson(
           .map((e) => Felt.fromJson(e as String))
           .toList(),
       tip: json['tip'] as String,
-      version: json['version'] as String? ?? '0x3',
+      version: json['version'] as String? ?? INVOKE_TXN_V3,
     );
 
 Map<String, dynamic> _$$InvokeTransactionV3ImplToJson(
