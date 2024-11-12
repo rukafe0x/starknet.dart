@@ -15,9 +15,11 @@ const String DEPLOY_ACCOUNT_TXN_V3_OLD_COMPAT = '0x03';
 abstract class DeployAccountTransaction {
   factory DeployAccountTransaction.fromJson(Map<String, Object?> json) =>
       switch (json['version']) {
-        DEPLOY_ACCOUNT_TXN_V1 || DEPLOY_ACCOUNT_TXN_V1_OLD_COMPAT =>
+        DEPLOY_ACCOUNT_TXN_V1 ||
+        DEPLOY_ACCOUNT_TXN_V1_OLD_COMPAT =>
           DeployAccountTransactionV1.fromJson(json),
-        DEPLOY_ACCOUNT_TXN_V3 || DEPLOY_ACCOUNT_TXN_V3_OLD_COMPAT =>
+        DEPLOY_ACCOUNT_TXN_V3 ||
+        DEPLOY_ACCOUNT_TXN_V3_OLD_COMPAT =>
           DeployAccountTransactionV3.fromJson(json),
         _ => throw Exception("Unsupported version ${json['version']}"),
       };
