@@ -17,12 +17,6 @@ Future<dynamic> callRpcEndpoint(
       nodeUri = nodeUri.replace(path: '/paymaster/v1/gas-token-prices');
       break;
     case 'paymaster_account_compatible':
-    // response is one field of this kind:
-//   {
-//   "isCompatible": false,
-//   "gasConsumedOverhead": "0x0",
-//   "dataGasConsumedOverhead": "0x0"
-// }
       final address = (params as List<String>)[0];
       nodeUri = nodeUri.replace(path: '/paymaster/v1/accounts/$address/compatible');
       break;

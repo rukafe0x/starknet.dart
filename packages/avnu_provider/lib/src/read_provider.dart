@@ -151,15 +151,6 @@ class JsonRpcReadProvider implements ReadProvider {
 
   @override
   Future<AvnuAccountCompatible> checkAccountCompatible(String address) async {
-    // response is one field of this kind:
-//   {
-    //   "isCompatible": false,
-    //   "gasConsumedOverhead": "0x0",
-    //   "dataGasConsumedOverhead": "0x0"
-    // }
-    // or 
-    // {"messages":["Account not deployed"]}
-    // so check if it has messages field
     return callRpcEndpoint(nodeUri: nodeUri, method: 'paymaster_account_compatible', params: [address])
         .then((dynamic json) => AvnuAccountCompatible.fromJson(json));
   }

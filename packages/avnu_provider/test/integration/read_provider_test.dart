@@ -84,13 +84,6 @@ void main() {
         expect(avnuAccountCompatible, isA<AvnuAccountCompatibleError>());
       });
       test('returns avnu account compatible', () async {
-            // response is one field of this kind:
-        //   {
-        //   "isCompatible": false,
-        //   "gasConsumedOverhead": "0x0",
-        //   "dataGasConsumedOverhead": "0x0"
-        // }
-
         // check with account 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7
         // as in https://sepolia.api.avnu.fi/webjars/swagger-ui/index.html#/ test cases
         final avnuAccountCompatible = await provider.checkAccountCompatible('0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7');

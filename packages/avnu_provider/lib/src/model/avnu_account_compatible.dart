@@ -7,15 +7,6 @@ part 'avnu_account_compatible.g.dart';
 
 @freezed
 class AvnuAccountCompatible with _$AvnuAccountCompatible {
-// response is one field of this kind:
-//   {
-//   "isCompatible": false,
-//   "gasConsumedOverhead": "0x0",
-//   "dataGasConsumedOverhead": "0x0"
-// }
-// or http error 400 with messages field
-    // {"messages":["Account not deployed"]}
-    // with previous fields as null, so in this case return error
   const factory AvnuAccountCompatible.isCompatible(
     bool isCompatible,
     String gasConsumedOverhead,
