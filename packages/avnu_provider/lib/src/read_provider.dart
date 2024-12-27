@@ -2,15 +2,20 @@ import 'package:starknet/starknet.dart';
 import 'package:avnu_provider/avnu_provider.dart';
 
 abstract class ReadProvider {
-  /// Gets the most recent accepted block number
+  /// Gets the AVNU service status
   ///
-  /// [Spec](https://github.com/starkware-libs/starknet-specs/blob/3d3b2d7ad6899f64043c0deaa8a40d3d8c9b1788/api/starknet_api_openrpc.json#L467-L483)
+  /// [Spec](https://doc.avnu.fi/avnu-paymaster/integration/api-references)
   Future<AvnuStatus> avnuStatus();
 
-  /// Get the most recent accepted block hash and number
+  /// Get the AVNU gas token prices
   ///
-  /// [Spec](https://github.com/starkware-libs/starknet-specs/blob/5cafa4cbaf5e4596bf309dfbde1bd0c4fa2ce1ce/api/starknet_api_openrpc.json#L484-L508)
-  // Future<BlockHashAndNumber> blockHashAndNumber();
+  /// [Spec](https://doc.avnu.fi/avnu-paymaster/integration/api-references)
+  Future<AvnuGasTokenPrices> getGasTokenPrices();
+
+  /// Check if the account is compatible with the gasless service
+  ///
+  /// [Spec](https://doc.avnu.fi/avnu-paymaster/integration/api-references)
+  Future<AvnuAccountCompatible> checkAccountCompatible(String address);
 
   // /// Get block information with full transactions given the block id
   // ///
@@ -135,7 +140,28 @@ class JsonRpcReadProvider implements ReadProvider {
   @override
   Future<AvnuStatus> avnuStatus() async {
     return callRpcEndpoint(nodeUri: nodeUri, method: 'paymaster_status')
-        .then(AvnuStatus.fromJson);
+        .then((dynamic json) => AvnuStatus.fromJson(json as Map<String, dynamic>));
+  }
+
+  @override
+  Future<AvnuGasTokenPrices> getGasTokenPrices() async {
+    return callRpcEndpoint(nodeUri: nodeUri, method: 'paymaster_gas_token_prices')
+        .then((dynamic json) => AvnuGasTokenPrices.fromJson({'prices': json}));
+  }
+
+  @override
+  Future<AvnuAccountCompatible> checkAccountCompatible(String address) async {
+    // response is one field of this kind:
+//   {
+    //   "isCompatible": false,
+    //   "gasConsumedOverhead": "0x0",
+    //   "dataGasConsumedOverhead": "0x0"
+    // }
+    // or 
+    // {"messages":["Account not deployed"]}
+    // so check if it has messages field
+    return callRpcEndpoint(nodeUri: nodeUri, method: 'paymaster_account_compatible', params: [address])
+        .then((dynamic json) => AvnuAccountCompatible.fromJson(json));
   }
 
   // @override

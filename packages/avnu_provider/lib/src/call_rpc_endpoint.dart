@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:starknet/starknet.dart';
 
-Future<Map<String, dynamic>> callRpcEndpoint(
+Future<dynamic> callRpcEndpoint(
     {required Uri nodeUri, required String method, Object? params}) async {
 
   Map<String, String> headers = { 'accept': 'application/json' };
@@ -12,6 +12,19 @@ Future<Map<String, dynamic>> callRpcEndpoint(
       // headers = {
       //   'ask-signature': '',
       // };
+      break;
+    case 'paymaster_gas_token_prices':
+      nodeUri = nodeUri.replace(path: '/paymaster/v1/gas-token-prices');
+      break;
+    case 'paymaster_account_compatible':
+    // response is one field of this kind:
+//   {
+//   "isCompatible": false,
+//   "gasConsumedOverhead": "0x0",
+//   "dataGasConsumedOverhead": "0x0"
+// }
+      final address = (params as List<String>)[0];
+      nodeUri = nodeUri.replace(path: '/paymaster/v1/accounts/$address/compatible');
       break;
     default:
       throw Exception('Method not supported');
