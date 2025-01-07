@@ -17,6 +17,11 @@ abstract class ReadProvider {
   /// [Spec](https://doc.avnu.fi/avnu-paymaster/integration/api-references)
   Future<AvnuAccountCompatible> checkAccountCompatible(String address);
 
+  /// Get the sponsor activity of the account
+  ///
+  /// [Spec](https://doc.avnu.fi/avnu-paymaster/integration/api-references)
+  Future<AvnuSponsorActivity> getSponsorActivity(String apiKey, String startDate, String endDate);
+
   // /// Get block information with full transactions given the block id
   // ///
   // /// [Spec](https://github.com/starkware-libs/starknet-specs/blob/30e5bafcda60c31b5fb4021b4f5ddcfc18d2ff7d/api/starknet_api_openrpc.json#L44-L75)
@@ -155,6 +160,11 @@ class JsonRpcReadProvider implements ReadProvider {
         .then((dynamic json) => AvnuAccountCompatible.fromJson(json));
   }
 
+  @override
+  Future<AvnuSponsorActivity> getSponsorActivity(String apiKey, String startDate, String endDate) async {
+    return callRpcEndpoint(nodeUri: nodeUri, method: 'paymaster_sponsor_activity', params: [apiKey, startDate, endDate])
+        .then((dynamic json) => AvnuSponsorActivity.fromJson(json));
+  }
   // @override
   // Future<BlockHashAndNumber> blockHashAndNumber() async {
   //   return callRpcEndpoint(

@@ -83,7 +83,7 @@ void main() {
         final avnuAccountCompatible = await provider.checkAccountCompatible(account0.accountAddress.toHexString());
         expect(avnuAccountCompatible, isA<AvnuAccountCompatibleError>());
       });
-      test('returns avnu account compatible', () async {
+      test('returns avnu account not compatible', () async {
         // check with account 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7
         // as in https://sepolia.api.avnu.fi/webjars/swagger-ui/index.html#/ test cases
         final avnuAccountCompatible = await provider.checkAccountCompatible('0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7');
@@ -97,7 +97,33 @@ void main() {
           error: (error) => fail('Should not return an error message: ${error.join(', ')}'),
         );
       });
+      test('returns avnu account compatible', () async {
+        // check with account 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7
+        // as in https://sepolia.api.avnu.fi/webjars/swagger-ui/index.html#/ test cases
+        final avnuAccountCompatible = await provider.checkAccountCompatible('0x01883b8338e3ddA4F190E71c7B9b529B97168862174D02F2D03e2a286e1fAe7d');
+        avnuAccountCompatible.when(
+          isCompatible: (isCompatible, gasConsumedOverhead, dataGasConsumedOverhead) {
+            expect(isCompatible, isTrue);
+            print('isCompatible: $isCompatible');
+            print('gasConsumedOverhead: $gasConsumedOverhead');
+            print('dataGasConsumedOverhead: $dataGasConsumedOverhead');
+          },
+          error: (error) => fail('Should not return an error message: ${error.join(', ')}'),
+        );
+      });
+    });
+    group('getSponsorActivity', () {
+      test('returns avnu sponsor activity', () async {
+        final apiKey = '3fe427af-1c19-4126-8570-4e3adba3a043';
+        final startDate = '2024-02-04T14:08:38.511Z';
+        final endDate = '2024-02-04T15:08:38.511Z';
+        final avnuSponsorActivity = await provider.getSponsorActivity(apiKey, startDate, endDate);
+        expect(avnuSponsorActivity, isA<AvnuSponsorActivity>());
+        print(avnuSponsorActivity.toJson());
+      });
     });
   }, tags: ['integration'], timeout: Timeout(Duration(minutes: 1)));
 }
+
+
 
