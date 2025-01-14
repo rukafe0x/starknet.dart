@@ -1,5 +1,4 @@
 import 'package:starknet/starknet.dart';
-
 import 'typed_data_field.dart';
 import 'revision.dart';
 import 'utils.dart';
@@ -29,6 +28,7 @@ List<Felt> encodeData({
       final encodedElement = encodeAsFelt(element);
       result.add(encodedElement);
     }
+    //final encodedFieldHash = revisionConfigurations[revision]!.hashMethod(result.expand((felt) => [felt.toBigInt()]).toList());
     return result;
   }
 
@@ -44,6 +44,7 @@ List<Felt> encodeData({
           result.add(encodeAsFelt(value));
         }
       } else {
+        final encodedType = encodeType(types, field.type, revision);
         final encodedField = encodeData(
           types: types,
           type: field.type,
@@ -51,12 +52,14 @@ List<Felt> encodeData({
           data: value is Map ? Map<String, dynamic>.from(value) : {'value': value},
           revision: revision,
         );
-        result.addAll(encodedField);
+
+        List<Felt> encodedStruct = [];
+        encodedType.isNotEmpty ? encodedStruct.add(starknetKeccak(utf8.encode(encodedType))) : null;
+        encodedStruct.addAll(encodedField);
+        final encodedFieldHash = revisionConfigurations[revision]!.hashMethod(encodedStruct.expand((felt) => [felt.toBigInt()]).toList());
+        result.add(Felt(encodedFieldHash));
       }
     }
-    final encodedType = encodeType(types,type, revision);
-    //expected: "StarknetDomain(name:felt,version:felt,chainId:felt)"
-    result.add(starknetKeccak(utf8.encode(encodedType)));
   }
   return result;
 }
@@ -80,10 +83,8 @@ String encodeType(Map<String, List<TypedDataField>> types, String type, [Revisio
       : types;
 
   final dependencies = getDependencies(allTypes, type, null, null, revision);
-  final primary = dependencies[0];
-  final remainingDeps = dependencies.sublist(1);
-  
-  final newTypes = primary == null ? [] : [primary, ...remainingDeps..sort()];
+
+  final newTypes = dependencies.isEmpty ? [] : [ dependencies[0], ...dependencies.sublist(1)..sort()];
   
   final esc = revisionConfigurations[revision]!.escapeTypeString;
   

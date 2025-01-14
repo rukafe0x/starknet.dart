@@ -35,12 +35,12 @@ class RevisionConfiguration {
 final Map<Revision, RevisionConfiguration> revisionConfigurations = {
   Revision.active: RevisionConfiguration(
     domain: 'StarknetDomain',
-    hashMethod: (List<BigInt> data) => computeHashOnElements(data),
+    hashMethod: (List<BigInt> data) => poseidonHasher.hashMany(data),
     escapeTypeString: (s) => '"${s}"',
   ),
   Revision.legacy: RevisionConfiguration(
     domain: 'StarkNetDomain',
-    hashMethod: (List<BigInt> data) => poseidonHasher.hashMany(data),
+    hashMethod: (List<BigInt> data) => computeHashOnElements(data),
     escapeTypeString: (s) => s,
   ),
 };

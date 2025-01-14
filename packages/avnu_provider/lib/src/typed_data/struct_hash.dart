@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'typed_data_field.dart';
 import 'revision.dart';
 import 'encoder.dart';
+import 'package:starknet/starknet.dart';
 
 BigInt getStructHash({
   required Map<String, List<TypedDataField>> types,
@@ -9,6 +10,10 @@ BigInt getStructHash({
   required Map<String, dynamic> data,
   Revision revision = Revision.legacy,
 }) {
+  
+  final encodedType = encodeType(types,type, revision);
+    //expected: "StarknetDomain(name:felt,version:felt,chainId:felt)"
+    
 
   final encodedData = encodeData(
     types: types,
@@ -17,8 +22,11 @@ BigInt getStructHash({
     revision: revision,
   );
 
+  List<Felt> encodedStruct = [];
+  encodedStruct.add(starknetKeccak(utf8.encode(encodedType)));
+  encodedStruct.addAll(encodedData);
   final structHash = revisionConfigurations[revision]!
-      .hashMethod(encodedData.expand((felt) => [felt.toBigInt()]).toList());
+      .hashMethod(encodedStruct.expand((felt) => [felt.toBigInt()]).toList());
 
   return structHash;
 }
