@@ -14,7 +14,11 @@ dependencies:
   http: ^1.2.2
   json_annotation: ^4.9.0
   pointycastle: ^3.9.1
-  starknet_provider: ^0.1.1+2
+  starknet_provider:
+    git:
+      url: https://github.com/rukafe0x/starknet.dart.git
+      path: packages/starknet_provider
+      ref: avnu_hackathon
 
 dev_dependencies:
   build_runner: ^2.4.13
