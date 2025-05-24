@@ -10,9 +10,9 @@ environment:
 dependencies:
   starknet:
     git:
-      url: https://github.com/focustree/starknet.dart.git
+      url: https://github.com/rukafe0x/starknet.dart.git
       path: packages/starknet
-      ref: main
+      ref: avnu_hackathon
   freezed_annotation: ^2.4.4
   http: ^1.3.0
   json_annotation: ^4.9.0
