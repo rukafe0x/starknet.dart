@@ -627,7 +627,10 @@ class Account {
 
   bool isNonceRelatedError(JsonRpcApiError error) {
     // Replace this with the actual condition to identify nonce-related errors.
-    return error.message.contains('Account validation failed');
+    // contains Account validation failed or A transaction with the same hash already exists in the mempool
+    return error.message.contains('Account validation failed') ||
+        error.message.contains(
+            'A transaction with the same hash already exists in the mempool');
   }
 
   Felt incrementNonce(Felt nonce) {
