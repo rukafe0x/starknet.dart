@@ -208,5 +208,6 @@ void main() {
         expect(avnuAccountRewards.isEmpty, isTrue);
       });
     });
-  }, tags: ['unit'], timeout: Timeout(Duration(minutes: 1)));
+    // skip this group of tests temporarily while rpc10 is not supported
+  }, tags: ['unit'], timeout: Timeout(Duration(minutes: 1)), skip: true);
 }

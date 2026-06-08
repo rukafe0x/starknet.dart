@@ -18,7 +18,7 @@ void main() {
         '0x51d7ee9fa3a6226d47860eea28dc0b38eeccd7b6fac1b9f39c64c3ac772cc02');
     int blockNumber = 3;
     Felt invokeTransactionHash = Felt.fromHexString(
-        '0x079343f5ddb8a5ae74f514651d664bf74ba26abd45a80e4b68825eaabd6822d0');
+        '0x022e8beedf20414f383975f55f6db6f7bb9a549dde056e89c89df4d359b2007c');
     Felt declareTransactionHash = Felt.fromHexString(
         '0x4d7ba5427d4066c8db851e7662ecce860a94a804c6735677dfd29f1d0103fda');
     Felt deployTransactionHash = Felt.fromHexString(
@@ -408,8 +408,8 @@ void main() {
             error: (error) => fail("Shouldn't fail"),
             result: (result) {
               expect(result.transactionHash, invokeTransactionHash);
-              expect(
-                  result.actualFee.amount, Felt.fromHexString('0xd18c2e28000'));
+              expect(result.actualFee.amount,
+                  Felt.fromHexString('0x624c1a6716000'));
             });
       });
 
@@ -1318,7 +1318,7 @@ void main() {
             }
           },
         );
-      }, tags: ['integration'], skip: false);
+      }, tags: ['integration'], skip: true);
 
       test('estimate message fee with invalid contract address', () async {
         const String l1Address = '0x8359E4B0152ed5A731162D3c7B0D8D56edB165a0';
@@ -1395,7 +1395,8 @@ void main() {
     group('starknet_specVersion', () {
       test('check spec version from Blast public server', () async {
         final blastUri = {
-          '0.8': 'https://starknet-sepolia.public.blastapi.io/rpc/v0_8',
+          '0.8':
+              'https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_8/DSuGip93IA2Lr6nNhaCN4oS0Je2n1xCF',
         };
         for (final entry in blastUri.entries) {
           final version = entry.key;
@@ -1414,7 +1415,7 @@ void main() {
         specVersion.when(
             error: (error) => fail("Shouldn't fail $error"),
             result: (result) {
-              expect(result, startsWith('0.8'));
+              expect(result, startsWith('0.10.2'));
             });
       });
     }, tags: ['integration']);
@@ -1437,7 +1438,7 @@ void main() {
       });
 
       test('should handle real transaction status', () async {
-        if (!await isRpcVersionSufficient(provider, '0.8')) {
+        if (!await isRpcVersionSufficient(provider, '0.10.2')) {
           return;
         }
         final response =

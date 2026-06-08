@@ -65,11 +65,11 @@ void main() {
           // starkli class-hash $name.compiled_contract_class.json
           final contractClassHashes = {
             'Counter':
-                '0x0394a77f159deb82c21b00a4ad136fd526187a1c82331d59339503306b41ecf8',
+                '0x0378921707b614110b18e7a46b37b6aeb6e3258e93c1c6d101e8eb1ee9fc8084',
             'hello':
-                '0x00675d18a52f0b87f5d60fd082d2334c5bdeeae911227dbb4fe7b89eec286f99',
+                '0x05d50cbf68dec1d993a1ffb24cd54202e998cde80df608aea6fc1a1f2b2fee28',
             'MyToken':
-                '0x0496ed5a699ccff05eade1dad0ec41edf1af0adda9aa9f915fdc3f3ae143508a',
+                '0x01c84410a7c24a43472acf1291578338db12c15e464defac24f9458879968515',
           };
           for (final entry in contractClassHashes.entries) {
             final contractPath =

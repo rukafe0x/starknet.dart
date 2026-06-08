@@ -286,7 +286,8 @@ void main() {
               .containsKey(WSSubscriptions.transactionStatus.value),
           false);
     }, timeout: Timeout(Duration(minutes: 5)));
-  }, tags: ['integration']);
+    // skip this group of tests temporarily while rpc10 is not supported
+  }, tags: ['integration'], skip: true);
 
   group('websocket regular endpoints - pathfinder test', () {
     late StarknetWebSocketChannel webSocketChannel;
@@ -313,5 +314,6 @@ void main() {
       final snSepolia = '0x534e5f5345504f4c4941'; //SN_SEPOLIA
       expect(response['result'], snSepolia);
     });
-  }, tags: ['integration']);
+    // skip this group of tests temporarily while rpc10 is not supported
+  }, tags: ['integration'], skip: true);
 }

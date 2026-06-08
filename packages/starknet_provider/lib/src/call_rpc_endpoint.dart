@@ -17,8 +17,14 @@ Future<Map<String, dynamic>> callRpcEndpoint(
 
   // 2023-07-13: Disabling symbol sorting is required for Declare V2
   final filteredBody = PythonicJsonEncoder(sortSymbol: false).convert(body);
+  print('************************************************************');
+  print('filteredBody: $filteredBody');
   final response =
       await http.post(nodeUri, headers: headers, body: filteredBody);
+
+  print('************************************************************');
+  print('response headers: ${response.headers}');
+  print('response body: ${response.body}');
 
   final jsonResponse = json.decode(response.body);
 

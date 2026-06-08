@@ -37,8 +37,8 @@ void main() {
     final sepoliaAccount0 = getAccount(
       accountAddress: sepoliaAccount0Address,
       privateKey: sepoliaAccount0PrivateKey,
-      nodeUri:
-          Uri.parse('https://starknet-sepolia.public.blastapi.io/rpc/v0_8'),
+      nodeUri: Uri.parse(
+          'https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_8/DSuGip93IA2Lr6nNhaCN4oS0Je2n1xCF'),
       chainId: Felt.fromString('SN_SEPOLIA'),
     );
 
@@ -357,8 +357,8 @@ void main() {
     final sepoliaAccount0 = getAccount(
       accountAddress: sepoliaAccount0Address,
       privateKey: sepoliaAccount0PrivateKey,
-      nodeUri:
-          Uri.parse('https://starknet-sepolia.public.blastapi.io/rpc/v0_8'),
+      nodeUri: Uri.parse(
+          'https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_8/DSuGip93IA2Lr6nNhaCN4oS0Je2n1xCF'),
       chainId: Felt.fromString('SN_SEPOLIA'),
     );
 
@@ -515,5 +515,6 @@ void main() {
         },
       );
     });
-  }, tags: ['unit']);
+    // skip this group of tests temporarily while rpc10 is not supported
+  }, tags: ['unit'], skip: true);
 }
