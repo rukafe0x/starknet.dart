@@ -18,7 +18,7 @@ void main() {
         '0x51d7ee9fa3a6226d47860eea28dc0b38eeccd7b6fac1b9f39c64c3ac772cc02');
     int blockNumber = 3;
     Felt invokeTransactionHash = Felt.fromHexString(
-        '0x022e8beedf20414f383975f55f6db6f7bb9a549dde056e89c89df4d359b2007c');
+        '0x592209e30c10830c4e794a2e48c62999600523d5346b7923340874e0d6789d6');
     Felt declareTransactionHash = Felt.fromHexString(
         '0x4d7ba5427d4066c8db851e7662ecce860a94a804c6735677dfd29f1d0103fda');
     Felt deployTransactionHash = Felt.fromHexString(
@@ -178,7 +178,7 @@ void main() {
               expect(
                   error.errorData?.mapOrNull(
                     contractError: (contractData) =>
-                        contractData.data.revertError,
+                        contractData.data.revertError.displayMessage,
                     // In case we need to handle a transaction execution error,
                     // we can get the transaction index and the execution error:
                     //transactionExecutionError: (txExecData) => txExecData.data.transactionIndex.toString() + txExecData.data.executionError,
@@ -196,13 +196,17 @@ void main() {
           contractAddress: Felt.fromHexString(
               '0x49D36570D4E46F48E99674BD3FCC84644DDD6B96F7C741B1562B82F9E004DC7'),
           key: getSelectorByName('ERC20_symbol'),
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
             error: (error) => fail("Shouldn't fail"),
             result: (result) {
-              expect(result, Felt.fromHexString("0x455448")); // ETH
+              expect(result, isA<StorageAtValueFelt>());
+              expect(
+                (result as StorageAtValueFelt).value,
+                Felt.fromHexString("0x455448"),
+              ); // ETH
             });
       }, skip: false);
 
@@ -219,7 +223,9 @@ void main() {
         response.when(
             error: (error) => fail("Shouldn't fail"),
             result: (result) {
-              expect(result, Felt.fromHexString("0x0"));
+              expect(result, isA<StorageAtValueFelt>());
+              expect((result as StorageAtValueFelt).value,
+                  Felt.fromHexString("0x0"));
             });
       });
 
@@ -646,7 +652,7 @@ void main() {
           () async {
         final response = await provider.getClass(
           classHash: classHashV0,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -664,7 +670,7 @@ void main() {
           () async {
         final response = await provider.getClass(
           classHash: classHashV1,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -696,7 +702,7 @@ void main() {
           () async {
         final response = await provider.getClass(
           classHash: invalidHexString,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -715,7 +721,7 @@ void main() {
           () async {
         final response = await provider.getClassHashAt(
           contractAddress: contractAddressV1,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -745,7 +751,7 @@ void main() {
           () async {
         final response = await provider.getClassHashAt(
           contractAddress: invalidHexString,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -764,7 +770,7 @@ void main() {
           () async {
         final response = await provider.getClassAt(
           contractAddress: contractAddressV0,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -782,7 +788,7 @@ void main() {
           () async {
         final response = await provider.getClassAt(
           contractAddress: contractAddressV1,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -814,7 +820,7 @@ void main() {
           () async {
         final response = await provider.getClassAt(
           contractAddress: invalidHexString,
-          blockId: BlockId.blockTag("latest"),
+          blockId: BlockId.latest,
         );
 
         response.when(
@@ -847,7 +853,7 @@ void main() {
         final response = await provider.getEvents(GetEventsRequest(
           chunkSize: 0,
           fromBlock: BlockId.blockNumber(100),
-          toBlock: BlockId.blockTag("latest"),
+          toBlock: BlockId.latest,
         ));
 
         response.when(
@@ -864,7 +870,7 @@ void main() {
           chunkSize: 1,
           continuationToken: "invalid token",
           fromBlock: BlockId.blockNumber(100),
-          toBlock: BlockId.blockTag("latest"),
+          toBlock: BlockId.latest,
         ));
 
         response.when(
@@ -1117,7 +1123,7 @@ void main() {
     });
 
     group('estimateFee', () {
-      BlockId parentBlockId = BlockId.blockTag('pending');
+      BlockId parentBlockId = BlockId.blockTag(BlockTag.preConfirmed);
 
       BroadcastedInvokeTxnV3 broadcastedInvokeTxnV3 = BroadcastedInvokeTxnV3(
         type: 'INVOKE',
@@ -1259,7 +1265,7 @@ void main() {
             expect(error.errorData, isA<TransactionExecutionError>());
             final errorData = error.errorData as TransactionExecutionError;
             expect(errorData.data.transactionIndex, 0);
-            expect(errorData.data.executionError,
+            expect(errorData.data.executionError.displayMessage,
                 contains('Transaction validation has failed'));
           },
           result: (result) {
@@ -1271,9 +1277,9 @@ void main() {
 
     group('estimateMessageFee', () {
       test('estimate message fee for L1 to L2 message', () async {
-        // Contract declared and deployed in devnet dump (source: /contracts/v2.6.2/src/l2_receiver.cairo)
+        // Contract declared and deployed in devnet dump (source: /contracts/v2.18.0/src/l2_receiver.cairo)
         final Felt l2ContractAddress = Felt.fromHexString(
-            '0x0505808b8dc23ef65ccd98da1ddd258ad8597e5cd06b0def786452900fcd955c');
+            '0x044fc9bf9e01ebfb68953e6629961bc4122c491819759857debd8f5b6dd3ea02');
 
         // This must be the l1 sender address
         const String l1Address = '0x8359E4B0152ed5A731162D3c7B0D8D56edB165a0';
@@ -1318,7 +1324,7 @@ void main() {
             }
           },
         );
-      }, tags: ['integration'], skip: true);
+      }, tags: ['integration']);
 
       test('estimate message fee with invalid contract address', () async {
         const String l1Address = '0x8359E4B0152ed5A731162D3c7B0D8D56edB165a0';
@@ -1446,7 +1452,8 @@ void main() {
         response.when(
             error: (error) => fail("Shouldn't fail: $error"),
             result: (result) {
-              expect(result.finalityStatus, TxnFinalityStatus.ACCEPTED_ON_L2);
+              expect(result.finalityStatus, TxnStatus.ACCEPTED_ON_L2);
+              expect(result.executionStatus, TxnExecutionStatus.SUCCEEDED);
             });
       });
     }, tags: ['integration']);

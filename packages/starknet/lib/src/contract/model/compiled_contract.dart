@@ -144,7 +144,7 @@ class FlattenSierraContractClass with _$FlattenSierraContractClass {
     required List<String> sierraProgram,
     required EntryPointsByType entryPointsByType,
     required String contractClassVersion,
-    required String abi,
+    @JsonKey(includeIfNull: false) String? abi,
   }) = _FlattenSierraClass;
 
   factory FlattenSierraContractClass.fromJson(Map<String, Object?> json) =>

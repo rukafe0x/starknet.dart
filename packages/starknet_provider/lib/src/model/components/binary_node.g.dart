@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'binary_mode.dart';
+part of 'binary_node.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
