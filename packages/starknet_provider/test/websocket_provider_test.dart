@@ -90,7 +90,7 @@ void main() {
       final status = await webSocketChannel.unsubscribe(
           fakeSubId, WSSubscriptions.newHeads.value);
       status.when(
-        result: (status) => fail('Should not return a result'),
+        result: (status) => expect(status, false),
         error: (error) =>
             expect(error.code, JsonWssApiErrorCode.invalidSubscriptionId),
       );
@@ -204,12 +204,12 @@ void main() {
       );
     }, timeout: Timeout(Duration(minutes: 2)));
 
-    test('Test subscribePendingTransaction', () async {
-      // Setup onPendingTransaction handler function
+    test('Test subscribeNewTransactions', () async {
+      // Setup onNewTransaction handler function
       final completer = Completer<void>();
       int i = 0;
 
-      webSocketChannel.onPendingTransaction = (channel, response) {
+      webSocketChannel.onNewTransaction = (channel, response) {
         i += 1;
         expect(response.result, isNotNull);
         if (i == 5) {
@@ -218,22 +218,22 @@ void main() {
       };
 
       // Initiate subscription
-      final subId = await webSocketChannel.subscribePendingTransaction(true);
+      final subId = await webSocketChannel.subscribeNewTransactions();
       subId.when(
         result: (subId) => expect(subId, isNotNull),
         error: (error) => fail('Should not return an error'),
       );
 
-      // Wait for the pending transaction events or timeout
+      // Wait for the new transaction events or timeout
       await completer.future.timeout(
         Duration(minutes: 2),
         onTimeout: () {
-          fail('Test timed out waiting for pending transactions events');
+          fail('Test timed out waiting for new transactions events');
         },
       );
 
       //Finalize
-      final status = await webSocketChannel.unsubscribePendingTransaction();
+      final status = await webSocketChannel.unsubscribeNewTransactions();
       status.when(
         result: (status) => expect(status, true),
         error: (error) => fail('Should not return an error'),
@@ -242,9 +242,56 @@ void main() {
       // Validate
       expect(
           webSocketChannel.subscriptions
-              .containsKey(WSSubscriptions.pendingTransaction.value),
+              .containsKey(WSSubscriptions.newTransactions.value),
           false);
     }, timeout: Timeout(Duration(minutes: 2)));
+
+    test(
+      'Test subscribeNewTransactionReceipts',
+      () async {
+        // Setup onNewTransactionReceipts handler function
+        final completer = Completer<void>();
+        int i = 0;
+
+        webSocketChannel.onNewTransactionReceipts = (channel, response) {
+          i += 1;
+          expect(response.result, isNotNull);
+          expect(response.result.transactionHash, isNotNull);
+          if (i == 5) {
+            completer.complete();
+          }
+        };
+
+        // Initiate subscription
+        final subId = await webSocketChannel.subscribeNewTransactionReceipts();
+        subId.when(
+          result: (subId) => expect(subId, isNotNull),
+          error: (error) => fail('Should not return an error'),
+        );
+
+        // Wait for the new transaction receipt events or timeout
+        await completer.future.timeout(
+          Duration(minutes: 2),
+          onTimeout: () {
+            fail('Test timed out waiting for new transaction receipts events');
+          },
+        );
+
+        // Finalize
+        final status =
+            await webSocketChannel.unsubscribeNewTransactionReceipts();
+        status.when(
+          result: (status) => expect(status, true),
+          error: (error) => fail('Should not return an error'),
+        );
+
+        // Validate
+        expect(
+            webSocketChannel.subscriptions
+                .containsKey(WSSubscriptions.newTransactionReceipts.value),
+            false);
+      },
+    );
 
     test('Test subscribeTransactionStatus', () async {
       // Setup onTransactionStatus handler function
@@ -285,9 +332,11 @@ void main() {
           webSocketChannel.subscriptions
               .containsKey(WSSubscriptions.transactionStatus.value),
           false);
-    }, timeout: Timeout(Duration(minutes: 5)));
-    // skip this group of tests temporarily while rpc10 is not supported
-  }, tags: ['integration'], skip: true);
+    },
+        timeout: Timeout(Duration(minutes: 5)),
+        skip:
+            true); //we skip this test because we cant wait a status change for an already succeded transaction
+  }, tags: ['integration']);
 
   group('websocket regular endpoints - pathfinder test', () {
     late StarknetWebSocketChannel webSocketChannel;
@@ -315,5 +364,5 @@ void main() {
       expect(response['result'], snSepolia);
     });
     // skip this group of tests temporarily while rpc10 is not supported
-  }, tags: ['integration'], skip: true);
+  }, tags: ['integration']);
 }

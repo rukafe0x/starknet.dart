@@ -10,7 +10,8 @@ _$WssSubscriptionNewTransactionResponseImpl
     _$$WssSubscriptionNewTransactionResponseImplFromJson(
             Map<String, dynamic> json) =>
         _$WssSubscriptionNewTransactionResponseImpl(
-          subscription_id: json['subscription_id'] as String,
+          subscription_id:
+              _readSubscriptionId(json, 'subscription_id') as String,
           result: NewSubscriptionTransaction.fromJson(
               json['result'] as Map<String, dynamic>),
         );

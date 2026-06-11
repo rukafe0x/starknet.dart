@@ -21,6 +21,7 @@ WssSubscriptionNewTransactionResponse
 
 /// @nodoc
 mixin _$WssSubscriptionNewTransactionResponse {
+  @JsonKey(readValue: _readSubscriptionId)
   String get subscription_id => throw _privateConstructorUsedError;
   NewSubscriptionTransaction get result => throw _privateConstructorUsedError;
 
@@ -43,7 +44,9 @@ abstract class $WssSubscriptionNewTransactionResponseCopyWith<$Res> {
       _$WssSubscriptionNewTransactionResponseCopyWithImpl<$Res,
           WssSubscriptionNewTransactionResponse>;
   @useResult
-  $Res call({String subscription_id, NewSubscriptionTransaction result});
+  $Res call(
+      {@JsonKey(readValue: _readSubscriptionId) String subscription_id,
+      NewSubscriptionTransaction result});
 
   $NewSubscriptionTransactionCopyWith<$Res> get result;
 }
@@ -99,7 +102,9 @@ abstract class _$$WssSubscriptionNewTransactionResponseImplCopyWith<$Res>
       __$$WssSubscriptionNewTransactionResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String subscription_id, NewSubscriptionTransaction result});
+  $Res call(
+      {@JsonKey(readValue: _readSubscriptionId) String subscription_id,
+      NewSubscriptionTransaction result});
 
   @override
   $NewSubscriptionTransactionCopyWith<$Res> get result;
@@ -141,13 +146,15 @@ class __$$WssSubscriptionNewTransactionResponseImplCopyWithImpl<$Res>
 class _$WssSubscriptionNewTransactionResponseImpl
     implements _WssSubscriptionNewTransactionResponse {
   const _$WssSubscriptionNewTransactionResponseImpl(
-      {required this.subscription_id, required this.result});
+      {@JsonKey(readValue: _readSubscriptionId) required this.subscription_id,
+      required this.result});
 
   factory _$WssSubscriptionNewTransactionResponseImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$WssSubscriptionNewTransactionResponseImplFromJson(json);
 
   @override
+  @JsonKey(readValue: _readSubscriptionId)
   final String subscription_id;
   @override
   final NewSubscriptionTransaction result;
@@ -192,7 +199,8 @@ class _$WssSubscriptionNewTransactionResponseImpl
 abstract class _WssSubscriptionNewTransactionResponse
     implements WssSubscriptionNewTransactionResponse {
   const factory _WssSubscriptionNewTransactionResponse(
-          {required final String subscription_id,
+          {@JsonKey(readValue: _readSubscriptionId)
+          required final String subscription_id,
           required final NewSubscriptionTransaction result}) =
       _$WssSubscriptionNewTransactionResponseImpl;
 
@@ -201,6 +209,7 @@ abstract class _WssSubscriptionNewTransactionResponse
       _$WssSubscriptionNewTransactionResponseImpl.fromJson;
 
   @override
+  @JsonKey(readValue: _readSubscriptionId)
   String get subscription_id;
   @override
   NewSubscriptionTransaction get result;

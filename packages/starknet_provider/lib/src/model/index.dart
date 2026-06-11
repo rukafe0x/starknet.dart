@@ -48,7 +48,6 @@ export 'wss_subscription_newhead.dart';
 export 'wss_subscription_new_transaction.dart';
 export 'wss_subscription_new_transaction_receipts.dart';
 export 'wss_subscription_transaction_status.dart';
-export 'wss_subscription_pending_transactions.dart';
 export 'wss_subscription_reorg.dart';
 export 'wss_unsubscribe.dart';
 export 'json_wss_api_error.dart';
