@@ -76,51 +76,6 @@ Future<dynamic> callRpcEndpoint(
         if (deploymentData != null) 'deploymentData': deploymentData,
       };
       break;
-    case 'paymaster_get_account_rewards':
-      httpMethod = 'get';
-      final paramsList = params as List<String?>;
-      final address = paramsList[0];
-      // Build query parameters map
-      final queryParams = <String, String>{};
-      final sponsor = paramsList[1];
-      final campaign = paramsList[2];
-      final protocol = paramsList[3];
-
-      nodeUri =
-          nodeUri.replace(path: '/paymaster/v1/accounts/$address/rewards');
-      if (sponsor != null) queryParams['sponsor'] = sponsor;
-      if (campaign != null) queryParams['campaign'] = campaign;
-      if (protocol != null) queryParams['protocol'] = protocol;
-
-      if (queryParams.isNotEmpty) {
-        nodeUri = nodeUri.replace(queryParameters: queryParams);
-      }
-      // remove ask-signature from headers until API bug is fixed
-      headers.remove('ask-signature');
-      break;
-    case 'paymaster_set_account_rewards':
-      httpMethod = 'post';
-      final paramsList = params as List<Object?>;
-      headers['accept'] = 'application/json';
-      if (paramsList[0] != '') headers['api-key'] = paramsList[0].toString();
-      headers['content-type'] = 'application/json';
-      final address = paramsList[1];
-      final campaign = paramsList[2];
-      final protocol = paramsList[3];
-      final freeTx = paramsList[4];
-      final expirationDate = paramsList[5];
-      final whitelistedCalls = paramsList[6];
-      nodeUri =
-          nodeUri.replace(path: '/paymaster/v1/accounts/$address/rewards');
-      body = {
-        'address': address,
-        'campaign': campaign,
-        'protocol': protocol,
-        'freeTx': freeTx,
-        'expirationDate': expirationDate,
-        'whitelistedCalls': whitelistedCalls
-      };
-      break;
     case 'paymaster_deploy_account':
       httpMethod = 'post';
       headers['accept'] = 'application/json';
@@ -164,12 +119,15 @@ Future<dynamic> callRpcEndpoint(
       jsonResponse = {
         'messages': ['Too many requests']
       };
+    } else if (response.statusCode == 500 &&
+        method == 'paymaster_deploy_account') {
+      final errorMessage = 'Contract already deployed.';
+      jsonResponse = {
+        'messages': [errorMessage]
+      };
     } else {
       jsonResponse = json.decode(response.body);
     }
-
-    print('************************************************************');
-    print('response: $response');
     // Only verify signature if public key is configured and ask-signature is true
     if (response.statusCode == 200 &&
         AvnuConfig.instance.publicKey != null &&

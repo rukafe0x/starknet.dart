@@ -163,51 +163,6 @@ void main() {
         );
       });
     });
-    group('getAccountRewards', () {
-      test('returns avnu account rewards', () async {
-        // we will use the account 0x039321741034d079C573bAd24dB5F012ed9614554301a2B08bDcb34E01d9C1BF
-        // as in https://sepolia.api.avnu.fi/webjars/swagger-ui/index.html#/ test cases
-        final avnuAccountRewards = await avnuReadProvider.getAccountRewards(
-            '0x039321741034d079C573bAd24dB5F012ed9614554301a2B08bDcb34E01d9C1BF',
-            'Starknet Foundation',
-            'Onboarding',
-            'AVNU');
-
-        // Verify the list is not empty
-        expect(avnuAccountRewards, isNotEmpty);
-
-        for (var reward in avnuAccountRewards) {
-          reward.when(
-            result: (date, address, sponsor, campaign, protocol, freeTx,
-                remainingTx, expirationDate, whitelistedCalls) {
-              expect(date, isNotNull, reason: 'Date should not be null');
-            },
-            error: (messages, revertError) {
-              fail('Should not get error response');
-            },
-          );
-        }
-      });
-      test('returns avnu account rewards error', () async {
-        final avnuAccountRewards =
-            await avnuReadProvider.getAccountRewards('0x0', '', '', '');
-        //print the error message inside first element
-        avnuAccountRewards.first.when(
-          result: (date, address, sponsor, campaign, protocol, freeTx,
-              remainingTx, expirationDate, whitelistedCalls) {
-            fail('Should not get result');
-          },
-          error: (messages, revertError) {
-            expect(messages.join(', '), 'Felt is empty');
-          },
-        );
-      });
-      test('returns avnu account rewards with empty response', () async {
-        final avnuAccountRewards = await avnuReadProvider.getAccountRewards(
-            '0x0123456789abcdef', 'Starknet Foundation', 'Onboarding', 'AVNU');
-        expect(avnuAccountRewards.isEmpty, isTrue);
-      });
-    });
     // skip this group of tests temporarily while rpc10 is not supported
-  }, tags: ['unit'], timeout: Timeout(Duration(minutes: 1)), skip: true);
+  }, tags: ['unit'], timeout: Timeout(Duration(minutes: 1)));
 }

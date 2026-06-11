@@ -37,8 +37,6 @@ void main() {
 
       group('Compiled contract (cairo 2.6.2)', () {
         test('Compute class hash for contracts', () async {
-          // classhashes have been computed with starkli 0.4.2
-          // starkli class-hash $name.contract_class.json
           final contractClassHashes = {
             'Counter':
                 '0x0514055409b5c091598fc9059534aca4ff9a8f74b7a684cff6a88058b3cda4fe',
@@ -61,8 +59,6 @@ void main() {
         });
 
         test('Compute class hash for compiled contract', () async {
-          // classhashes have been computed with starkli 0.4.2
-          // starkli class-hash $name.compiled_contract_class.json
           final contractClassHashes = {
             'Counter':
                 '0x0378921707b614110b18e7a46b37b6aeb6e3258e93c1c6d101e8eb1ee9fc8084',

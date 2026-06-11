@@ -24,12 +24,6 @@ abstract class AvnuReadProvider {
   Future<AvnuSponsorActivity> getSponsorActivity(
       String startDate, String endDate);
 
-  // Get the account rewards
-  //
-  // [Spec](https://doc.avnu.fi/avnu-paymaster/integration/api-references)
-  Future<List<AvnuAccountRewards>> getAccountRewards(
-      String address, String? sponsor, String? campaign, String? protocol);
-
   // Sets the API key for AVNU service
   void setApiKey(String apiKey);
 }
@@ -93,20 +87,5 @@ class AvnuJsonRpcReadProvider implements AvnuReadProvider {
             method: 'paymaster_sponsor_activity',
             params: [effectiveApiKey, startDate, endDate])
         .then((dynamic json) => AvnuSponsorActivity.fromJson(json));
-  }
-
-  @override
-  Future<List<AvnuAccountRewards>> getAccountRewards(String address,
-      String? sponsor, String? campaign, String? protocol) async {
-    try {
-      final dynamic json = await callRpcEndpoint(
-          nodeUri: nodeUri,
-          method: 'paymaster_get_account_rewards',
-          params: [address, sponsor, campaign, protocol]);
-      return AvnuAccountRewards.fromJsonList(json);
-    } on FormatException catch (e) {
-      throw FormatException(
-          'Failed to parse account rewards response: ${e.message}');
-    }
   }
 }

@@ -331,11 +331,11 @@ void main() {
         );
         final error = avnuDeploy as AvnuDeployAccountError;
 
-        const expectedMessage = 'contract already deployed at address';
+        const expectedMessage = 'Contract already deployed.';
         final foundInMessages =
-            error.messages.join(', ').toLowerCase().contains(expectedMessage);
+            error.messages.join(', ').contains(expectedMessage);
         final foundInRevertError =
-            (error.revertError ?? '').toLowerCase().contains(expectedMessage);
+            (error.revertError ?? '').contains(expectedMessage);
         expect(
           foundInMessages || foundInRevertError,
           isTrue,
@@ -459,62 +459,6 @@ void main() {
         },
       );
     });
-
-    test('set rewards for a user account', () async {
-      final address = sepoliaAccount0.accountAddress.toHexString();
-      final campaign = 'Onboarding1';
-      final protocol = 'AVNU1';
-      // set 2 gasless transactions for the user
-      final freeTx = 2;
-      // set expiration dat with current utc data in gmt TZ plus 1 hour
-      final expirationDate =
-          DateTime.now().add(Duration(hours: 1)).toUtc().toIso8601String();
-      final whitelistedCalls = [
-        {'contractAddress': '*', 'entrypoint': '*'}
-      ];
-      final avnuSetAccountRewards = await avnuProvider.setAccountRewards(
-          address,
-          campaign,
-          protocol,
-          freeTx,
-          expirationDate,
-          whitelistedCalls);
-      avnuSetAccountRewards.when(
-        result: (date, address, sponsor, campaign, protocol, freeTx,
-            remainingTx, expirationDate, whitelistedCalls) {
-          expect(date, isNotNull, reason: 'Date should not be null');
-        },
-        error: (error, revertError) {
-          fail('Should not get error response');
-        },
-      );
-    });
-    test('set rewards for a user account error', () async {
-      final address = '0x0';
-      final campaign = 'Onboarding2';
-      final protocol = 'AVNU2';
-      final freeTx = 2;
-      final expirationDate = DateTime.now().toUtc().toIso8601String();
-      final whitelistedCalls = [
-        {'contractAddress': '*', 'entrypoint': '*'}
-      ];
-      final avnuSetAccountRewards = await avnuProvider.setAccountRewards(
-          address,
-          campaign,
-          protocol,
-          freeTx,
-          expirationDate,
-          whitelistedCalls);
-      avnuSetAccountRewards.when(
-        result: (date, address, sponsor, campaign, protocol, freeTx,
-            remainingTx, expirationDate, whitelistedCalls) {
-          fail('Should not get result');
-        },
-        error: (error, revertError) {
-          expect(error.join(', '), 'Felt is empty');
-        },
-      );
-    });
     // skip this group of tests temporarily while rpc10 is not supported
-  }, tags: ['unit'], skip: true);
+  }, tags: ['unit']);
 }

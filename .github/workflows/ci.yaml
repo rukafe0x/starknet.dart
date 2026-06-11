@@ -8,7 +8,7 @@ env:
   STARKNET_WSS: wss://api-starknet-sepolia.n.dwellir.com/9426eaad-aaf7-4367-bdae-81d1c6aa731e
   DEVNET_DUMP_PATH: /devnet-dump.json
   AVNU_RPC: https://sepolia.api.avnu.fi
-  STARKLI_VERSION: 0.4.2
+  STARKNET_FOUNDRY_VERSION: 0.61.0
 
 jobs:
   lint:
@@ -42,8 +42,8 @@ jobs:
       - run: melos bootstrap
       - name: Install asdf
         uses: asdf-vm/actions/setup@v3
-      - name: Install starkli
-        run: melos asdf:starkli
+      - name: Install starknet-foundry
+        run: melos asdf:starknet-foundry
       - name: Retrieve starknet devnet version
         shell: bash
         run: |

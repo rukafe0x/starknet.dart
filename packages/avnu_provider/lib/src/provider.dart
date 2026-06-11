@@ -19,17 +19,6 @@ abstract class AvnuProvider {
   Future<AvnuExecute> execute(String userAddress, String typedData,
       List<String> signature, Map<dynamic, dynamic>? deploymentData);
 
-  // Set account rewards
-  //
-  // [Spec](https://doc.avnu.fi/avnu-paymaster/integration/api-references)
-  Future<AvnuAccountRewards> setAccountRewards(
-      String address,
-      String campaign,
-      String protocol,
-      int freeTx,
-      String expirationDate,
-      List<Map<String, String>> whitelistedCalls);
-
   /// Deploy an account
   ///
   /// [Spec](https://starknet.api.avnu.fi/webjars/swagger-ui/index.html#/Paymaster/deployAccount_1)
@@ -96,30 +85,6 @@ class AvnuJsonRpcProvider implements AvnuProvider {
           signature,
           deploymentData
         ]).then((dynamic json) => AvnuExecute.fromJson(json));
-  }
-
-  @override
-  Future<AvnuAccountRewards> setAccountRewards(
-      String address,
-      String campaign,
-      String protocol,
-      int freeTx,
-      String expirationDate,
-      List<Map<String, String>> whitelistedCalls) async {
-    final effectiveApiKey = AvnuConfig.instance.apiKey ?? '';
-    return callRpcEndpoint(
-      nodeUri: nodeUri,
-      method: 'paymaster_set_account_rewards',
-      params: [
-        effectiveApiKey,
-        address,
-        campaign,
-        protocol,
-        freeTx,
-        expirationDate,
-        whitelistedCalls
-      ],
-    ).then((dynamic json) => AvnuAccountRewards.fromJson(json));
   }
 
   @override
