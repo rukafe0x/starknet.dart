@@ -43,7 +43,7 @@ enum _ExecutionStatus {
 enum _FinalityStatus {
   acceptedOnL1('ACCEPTED_ON_L1'),
   acceptedOnL2('ACCEPTED_ON_L2'),
-  received('RECEIVED'),
+  //received('RECEIVED'), // unused, only for completeness of the enum
   rejected('REJECTED'),
   pending('PENDING'),
   unknown('UNKNOWN');
