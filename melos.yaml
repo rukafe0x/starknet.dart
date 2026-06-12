@@ -146,7 +146,7 @@ scripts:
   contracts:argent:declare:
     description: declare the Argent contract
     run: |
-      sncast --account $SNCAST_ACCOUNT declare-from --sierra-file contracts/argent/v0.4.0/argent_ArgentAccount.contract_class.json --url $STARKNET_RPC 2>&1
+      sncast --account $SNCAST_ACCOUNT --accounts-file .starknet_accounts/starknet_open_zeppelin_accounts.json declare-from --sierra-file contracts/argent/v0.4.0/argent_ArgentAccount.contract_class.json --url $STARKNET_RPC 2>&1
 
   test:
     description: Run all tests

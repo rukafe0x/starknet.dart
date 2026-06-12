@@ -9,6 +9,7 @@ env:
   DEVNET_DUMP_PATH: /devnet-dump.json
   AVNU_RPC: https://sepolia.api.avnu.fi
   STARKNET_FOUNDRY_VERSION: 0.61.0
+  SNCAST_ACCOUNT: devnet
 
 jobs:
   lint:
@@ -42,14 +43,13 @@ jobs:
       - run: melos bootstrap
       - name: Install asdf
         uses: asdf-vm/actions/setup@v3
-      - name: Setup asdf paths
-        shell: bash
-        run: |
-          echo "$HOME/.asdf/bin" >> $GITHUB_PATH
-          echo "$HOME/.asdf/shims" >> $GITHUB_PATH
+        with:
+          asdf_branch: v0.16.0
       - name: Install starknet-foundry
         shell: bash
         run: |
+          export ASDF_DATA_DIR="$HOME/.asdf"
+          export PATH="$ASDF_DATA_DIR/shims:$PATH"
           melos asdf:starknet-foundry
       - name: Retrieve starknet devnet version
         shell: bash
