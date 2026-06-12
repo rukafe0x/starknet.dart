@@ -45,8 +45,8 @@ jobs:
       - name: Setup asdf paths
         shell: bash
         run: |
-        echo "$HOME/.asdf/bin" >> $GITHUB_PATH
-        echo "$HOME/.asdf/shims" >> $GITHUB_PATH
+          echo "$HOME/.asdf/bin" >> $GITHUB_PATH
+          echo "$HOME/.asdf/shims" >> $GITHUB_PATH
       - name: Install starknet-foundry
         run: melos asdf:starknet-foundry
       - name: Retrieve starknet devnet version
