@@ -106,7 +106,9 @@ List<dynamic> _contractsStorageProofsToJson(
 
 @JsonSerializable()
 class ContractsProof {
-  @JsonKey(fromJson: nodeHashToNodeMappingFromJson, toJson: nodeHashToNodeMappingToJson)
+  @JsonKey(
+      fromJson: nodeHashToNodeMappingFromJson,
+      toJson: nodeHashToNodeMappingToJson)
   final NodeHashToNodeMapping nodes;
   @JsonKey(name: 'contract_leaves_data')
   final List<ContractLeavesData> contractLeavesData;

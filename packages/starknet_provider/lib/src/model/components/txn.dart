@@ -41,7 +41,8 @@ class Txn with _$Txn {
     required String type,
     @JsonKey(name: 'sender_address') required Felt senderAddress,
     required List<Felt> calldata,
-    @JsonKey(name: 'resource_bounds') required ResourceBoundsMapping resourceBounds,
+    @JsonKey(name: 'resource_bounds')
+    required ResourceBoundsMapping resourceBounds,
     required String tip,
     @JsonKey(name: 'paymaster_data') required List<Felt> paymasterData,
     @JsonKey(name: 'account_deployment_data')
@@ -95,7 +96,8 @@ class Txn with _$Txn {
     @JsonKey(name: 'sender_address') required Felt senderAddress,
     @JsonKey(name: 'compiled_class_hash') required Felt compiledClassHash,
     @JsonKey(name: 'class_hash') required Felt classHash,
-    @JsonKey(name: 'resource_bounds') required ResourceBoundsMapping resourceBounds,
+    @JsonKey(name: 'resource_bounds')
+    required ResourceBoundsMapping resourceBounds,
     required String tip,
     @JsonKey(name: 'paymaster_data') required List<Felt> paymasterData,
     @JsonKey(name: 'account_deployment_data')
@@ -111,7 +113,8 @@ class Txn with _$Txn {
     required Felt version,
     required String type,
     @JsonKey(name: 'contract_address_salt') required Felt contractAddressSalt,
-    @JsonKey(name: 'constructor_calldata') required List<Felt> constructorCalldata,
+    @JsonKey(name: 'constructor_calldata')
+    required List<Felt> constructorCalldata,
     @JsonKey(name: 'class_hash') required Felt classHash,
   }) = DeployTxn;
 
@@ -123,7 +126,8 @@ class Txn with _$Txn {
     required Felt nonce,
     required String type,
     @JsonKey(name: 'contract_address_salt') required Felt contractAddressSalt,
-    @JsonKey(name: 'constructor_calldata') required List<Felt> constructorCalldata,
+    @JsonKey(name: 'constructor_calldata')
+    required List<Felt> constructorCalldata,
     @JsonKey(name: 'class_hash') required Felt classHash,
   }) = DeployAccountTxnV1;
 
@@ -134,9 +138,11 @@ class Txn with _$Txn {
     required Felt nonce,
     required String type,
     @JsonKey(name: 'contract_address_salt') required Felt contractAddressSalt,
-    @JsonKey(name: 'constructor_calldata') required List<Felt> constructorCalldata,
+    @JsonKey(name: 'constructor_calldata')
+    required List<Felt> constructorCalldata,
     @JsonKey(name: 'class_hash') required Felt classHash,
-    @JsonKey(name: 'resource_bounds') required ResourceBoundsMapping resourceBounds,
+    @JsonKey(name: 'resource_bounds')
+    required ResourceBoundsMapping resourceBounds,
     required String tip,
     @JsonKey(name: 'paymaster_data') required List<Felt> paymasterData,
     @JsonKey(name: 'nonce_data_availability_mode')
@@ -214,9 +220,8 @@ Txn _deployAccountFromJson(Map<String, dynamic> json) {
 Felt? _optionalFelt(dynamic value) =>
     value == null ? null : Felt.fromJson(value as String);
 
-List<Felt> _feltList(dynamic value) => (value as List<dynamic>)
-    .map((e) => Felt.fromJson(e as String))
-    .toList();
+List<Felt> _feltList(dynamic value) =>
+    (value as List<dynamic>).map((e) => Felt.fromJson(e as String)).toList();
 
 InvokeTxnV0 _parseInvokeTxnV0(Map<String, dynamic> json) => InvokeTxnV0(
       transactionHash: _optionalFelt(json['transaction_hash']),
@@ -254,8 +259,10 @@ InvokeTxnV3 _parseInvokeTxnV3(Map<String, dynamic> json) => InvokeTxnV3(
       tip: json['tip'] as String,
       paymasterData: _feltList(json['paymaster_data']),
       accountDeploymentData: _feltList(json['account_deployment_data']),
-      nonceDataAvailabilityMode: _parseDaMode(json['nonce_data_availability_mode'] as String),
-      feeDataAvailabilityMode: _parseDaMode(json['fee_data_availability_mode'] as String),
+      nonceDataAvailabilityMode:
+          _parseDaMode(json['nonce_data_availability_mode'] as String),
+      feeDataAvailabilityMode:
+          _parseDaMode(json['fee_data_availability_mode'] as String),
       proofFacts: json['proof_facts'] == null
           ? const []
           : _feltList(json['proof_facts']),
@@ -309,15 +316,18 @@ DeclareTxnV3 _parseDeclareTxnV3(Map<String, dynamic> json) => DeclareTxnV3(
       tip: json['tip'] as String,
       paymasterData: _feltList(json['paymaster_data']),
       accountDeploymentData: _feltList(json['account_deployment_data']),
-      nonceDataAvailabilityMode: _parseDaMode(json['nonce_data_availability_mode'] as String),
-      feeDataAvailabilityMode: _parseDaMode(json['fee_data_availability_mode'] as String),
+      nonceDataAvailabilityMode:
+          _parseDaMode(json['nonce_data_availability_mode'] as String),
+      feeDataAvailabilityMode:
+          _parseDaMode(json['fee_data_availability_mode'] as String),
     );
 
 DeployTxn _parseDeployTxn(Map<String, dynamic> json) => DeployTxn(
       transactionHash: _optionalFelt(json['transaction_hash']),
       version: Felt.fromJson(json['version'] as String),
       type: json['type'] as String,
-      contractAddressSalt: Felt.fromJson(json['contract_address_salt'] as String),
+      contractAddressSalt:
+          Felt.fromJson(json['contract_address_salt'] as String),
       constructorCalldata: _feltList(json['constructor_calldata']),
       classHash: Felt.fromJson(json['class_hash'] as String),
     );
@@ -330,7 +340,8 @@ DeployAccountTxnV1 _parseDeployAccountTxnV1(Map<String, dynamic> json) =>
       signature: _feltList(json['signature']),
       nonce: Felt.fromJson(json['nonce'] as String),
       type: json['type'] as String,
-      contractAddressSalt: Felt.fromJson(json['contract_address_salt'] as String),
+      contractAddressSalt:
+          Felt.fromJson(json['contract_address_salt'] as String),
       constructorCalldata: _feltList(json['constructor_calldata']),
       classHash: Felt.fromJson(json['class_hash'] as String),
     );
@@ -342,7 +353,8 @@ DeployAccountTxnV3 _parseDeployAccountTxnV3(Map<String, dynamic> json) =>
       signature: _feltList(json['signature']),
       nonce: Felt.fromJson(json['nonce'] as String),
       type: json['type'] as String,
-      contractAddressSalt: Felt.fromJson(json['contract_address_salt'] as String),
+      contractAddressSalt:
+          Felt.fromJson(json['contract_address_salt'] as String),
       constructorCalldata: _feltList(json['constructor_calldata']),
       classHash: Felt.fromJson(json['class_hash'] as String),
       resourceBounds: ResourceBoundsMapping.fromJson(
@@ -350,8 +362,10 @@ DeployAccountTxnV3 _parseDeployAccountTxnV3(Map<String, dynamic> json) =>
       ),
       tip: json['tip'] as String,
       paymasterData: _feltList(json['paymaster_data']),
-      nonceDataAvailabilityMode: _parseDaMode(json['nonce_data_availability_mode'] as String),
-      feeDataAvailabilityMode: _parseDaMode(json['fee_data_availability_mode'] as String),
+      nonceDataAvailabilityMode:
+          _parseDaMode(json['nonce_data_availability_mode'] as String),
+      feeDataAvailabilityMode:
+          _parseDaMode(json['fee_data_availability_mode'] as String),
     );
 
 L1HandlerTxn _parseL1HandlerTxn(Map<String, dynamic> json) => L1HandlerTxn(

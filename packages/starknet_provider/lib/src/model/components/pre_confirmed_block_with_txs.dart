@@ -9,9 +9,7 @@ part 'pre_confirmed_block_with_txs.freezed.dart';
 part 'pre_confirmed_block_with_txs.g.dart';
 
 List<TxnWithHash> _preConfirmedTxnWithHashListFromJson(List<dynamic> json) =>
-    json
-        .map((e) => TxnWithHash.fromJson(e as Map<String, dynamic>))
-        .toList();
+    json.map((e) => TxnWithHash.fromJson(e as Map<String, dynamic>)).toList();
 
 List<Map<String, dynamic>> _preConfirmedTxnWithHashListToJson(
         List<TxnWithHash> value) =>

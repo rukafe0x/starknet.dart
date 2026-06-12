@@ -45,8 +45,9 @@ class SubscriptionBlockId with _$SubscriptionBlockId {
   static SubscriptionBlockTag _blockTagFromString(String value) {
     return switch (value) {
       'latest' => SubscriptionBlockTag.latest,
-      'l1_accepted' || 'pre_confirmed' => throw FormatException(
-          'Invalid SUBSCRIPTION_BLOCK_ID tag: $value'),
+      'l1_accepted' ||
+      'pre_confirmed' =>
+        throw FormatException('Invalid SUBSCRIPTION_BLOCK_ID tag: $value'),
       _ => throw FormatException('Invalid SUBSCRIPTION_BLOCK_ID tag: $value'),
     };
   }

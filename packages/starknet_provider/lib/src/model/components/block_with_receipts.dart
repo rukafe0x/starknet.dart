@@ -36,7 +36,8 @@ class BlockWithReceipts with _$BlockWithReceipts {
     @JsonKey(name: 'l1_da_mode') required L1DaMode l1DaMode,
     @JsonKey(name: 'starknet_version') required String starknetVersion,
     @JsonKey(name: 'event_commitment') required Felt eventCommitment,
-    @JsonKey(name: 'transaction_commitment') required Felt transactionCommitment,
+    @JsonKey(name: 'transaction_commitment')
+    required Felt transactionCommitment,
     @JsonKey(name: 'receipt_commitment') required Felt receiptCommitment,
     @JsonKey(name: 'state_diff_commitment') required Felt stateDiffCommitment,
     @JsonKey(name: 'event_count') required int eventCount,

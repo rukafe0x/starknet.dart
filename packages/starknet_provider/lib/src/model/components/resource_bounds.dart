@@ -29,7 +29,9 @@ class JsonFeltu128Converter implements JsonConverter<Felt, String> {
 @freezed
 class ResourceBounds with _$ResourceBounds {
   const factory ResourceBounds({
-    @JsonKey(name: 'max_amount') @JsonFeltu64Converter() required Felt maxAmount,
+    @JsonKey(name: 'max_amount')
+    @JsonFeltu64Converter()
+    required Felt maxAmount,
     @JsonKey(name: 'max_price_per_unit')
     @JsonFeltu128Converter()
     required Felt maxPricePerUnit,

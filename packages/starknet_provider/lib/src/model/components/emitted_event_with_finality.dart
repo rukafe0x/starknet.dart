@@ -20,7 +20,8 @@ class EmittedEventWithFinality with _$EmittedEventWithFinality {
   factory EmittedEventWithFinality.fromJson(Map<String, dynamic> json) {
     return EmittedEventWithFinality(
       event: EmittedEvent.fromJson(json),
-      finalityStatus: _parseTxnFinalityStatus(json['finality_status'] as String),
+      finalityStatus:
+          _parseTxnFinalityStatus(json['finality_status'] as String),
     );
   }
 

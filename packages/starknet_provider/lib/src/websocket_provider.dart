@@ -54,8 +54,7 @@ class StarknetWebSocketChannel {
           StarknetWebSocketChannel, WssSubscriptionNewTransactionResponse)?
       onNewTransaction;
   void Function(StarknetWebSocketChannel,
-          WssSubscriptionNewTransactionReceiptsResponse)?
-      onNewTransactionReceipts;
+      WssSubscriptionNewTransactionReceiptsResponse)? onNewTransactionReceipts;
   void Function(StarknetWebSocketChannel, dynamic)? onOpen;
   void Function(StarknetWebSocketChannel, dynamic)? onClose;
   void Function(StarknetWebSocketChannel, dynamic)? onMessage;
@@ -418,7 +417,8 @@ class StarknetWebSocketChannel {
   }
 
   /// Subscribe to new transactions (unmanaged)
-  Future<WssSubscribeNewTransactionsResponse> subscribeNewTransactionsUnmanaged([
+  Future<WssSubscribeNewTransactionsResponse>
+      subscribeNewTransactionsUnmanaged([
     List<TxnStatusWithoutL1>? finalityStatus,
     List<Felt>? senderAddress,
     List<TxnResponseFlag>? tags,

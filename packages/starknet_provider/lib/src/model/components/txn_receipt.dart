@@ -18,7 +18,8 @@ class TxnReceipt with _$TxnReceipt {
     @JsonKey(name: 'transaction_hash') required Felt transactionHash,
     @JsonKey(name: 'actual_fee') required FeePayment actualFee,
     @JsonKey(name: 'finality_status') required TxnFinalityStatus finalityStatus,
-    @JsonKey(name: 'execution_status') required TxnExecutionStatus executionStatus,
+    @JsonKey(name: 'execution_status')
+    required TxnExecutionStatus executionStatus,
     @JsonKey(name: 'revert_reason') String? revertReason,
     @JsonKey(name: 'messages_sent') required List<MsgToL1> messagesSent,
     required List<Event> events,
@@ -33,7 +34,8 @@ class TxnReceipt with _$TxnReceipt {
     @JsonKey(name: 'transaction_hash') required Felt transactionHash,
     @JsonKey(name: 'actual_fee') required FeePayment actualFee,
     @JsonKey(name: 'finality_status') required TxnFinalityStatus finalityStatus,
-    @JsonKey(name: 'execution_status') required TxnExecutionStatus executionStatus,
+    @JsonKey(name: 'execution_status')
+    required TxnExecutionStatus executionStatus,
     @JsonKey(name: 'revert_reason') String? revertReason,
     @JsonKey(name: 'messages_sent') required List<MsgToL1> messagesSent,
     required List<Event> events,
@@ -49,7 +51,8 @@ class TxnReceipt with _$TxnReceipt {
     @JsonKey(name: 'transaction_hash') required Felt transactionHash,
     @JsonKey(name: 'actual_fee') required FeePayment actualFee,
     @JsonKey(name: 'finality_status') required TxnFinalityStatus finalityStatus,
-    @JsonKey(name: 'execution_status') required TxnExecutionStatus executionStatus,
+    @JsonKey(name: 'execution_status')
+    required TxnExecutionStatus executionStatus,
     @JsonKey(name: 'revert_reason') String? revertReason,
     @JsonKey(name: 'messages_sent') required List<MsgToL1> messagesSent,
     required List<Event> events,
@@ -65,7 +68,8 @@ class TxnReceipt with _$TxnReceipt {
     @JsonKey(name: 'transaction_hash') required Felt transactionHash,
     @JsonKey(name: 'actual_fee') required FeePayment actualFee,
     @JsonKey(name: 'finality_status') required TxnFinalityStatus finalityStatus,
-    @JsonKey(name: 'execution_status') required TxnExecutionStatus executionStatus,
+    @JsonKey(name: 'execution_status')
+    required TxnExecutionStatus executionStatus,
     @JsonKey(name: 'revert_reason') String? revertReason,
     @JsonKey(name: 'messages_sent') required List<MsgToL1> messagesSent,
     required List<Event> events,
@@ -81,7 +85,8 @@ class TxnReceipt with _$TxnReceipt {
     @JsonKey(name: 'transaction_hash') required Felt transactionHash,
     @JsonKey(name: 'actual_fee') required FeePayment actualFee,
     @JsonKey(name: 'finality_status') required TxnFinalityStatus finalityStatus,
-    @JsonKey(name: 'execution_status') required TxnExecutionStatus executionStatus,
+    @JsonKey(name: 'execution_status')
+    required TxnExecutionStatus executionStatus,
     @JsonKey(name: 'revert_reason') String? revertReason,
     @JsonKey(name: 'messages_sent') required List<MsgToL1> messagesSent,
     required List<Event> events,
@@ -137,9 +142,12 @@ class _CommonReceiptFields {
 _CommonReceiptFields _parseCommonReceiptFields(Map<String, dynamic> json) =>
     _CommonReceiptFields(
       transactionHash: Felt.fromJson(json['transaction_hash'] as String),
-      actualFee: FeePayment.fromJson(json['actual_fee'] as Map<String, dynamic>),
-      finalityStatus: _parseTxnFinalityStatus(json['finality_status'] as String),
-      executionStatus: _parseTxnExecutionStatus(json['execution_status'] as String),
+      actualFee:
+          FeePayment.fromJson(json['actual_fee'] as Map<String, dynamic>),
+      finalityStatus:
+          _parseTxnFinalityStatus(json['finality_status'] as String),
+      executionStatus:
+          _parseTxnExecutionStatus(json['execution_status'] as String),
       revertReason: json['revert_reason'] as String?,
       messagesSent: (json['messages_sent'] as List<dynamic>)
           .map((e) => MsgToL1.fromJson(e as Map<String, dynamic>))
@@ -226,7 +234,8 @@ DeployTxnReceipt _parseDeployTxnReceipt(Map<String, dynamic> json) {
   );
 }
 
-DeployAccountTxnReceipt _parseDeployAccountTxnReceipt(Map<String, dynamic> json) {
+DeployAccountTxnReceipt _parseDeployAccountTxnReceipt(
+    Map<String, dynamic> json) {
   final common = _parseCommonReceiptFields(json);
   return DeployAccountTxnReceipt(
     type: json['type'] as String,

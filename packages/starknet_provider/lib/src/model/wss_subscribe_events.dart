@@ -66,5 +66,6 @@ SubscriptionFinalityStatus _parseSubscriptionFinalityStatus(String value) =>
     switch (value) {
       'PRE_CONFIRMED' => SubscriptionFinalityStatus.PRE_CONFIRMED,
       'ACCEPTED_ON_L2' => SubscriptionFinalityStatus.ACCEPTED_ON_L2,
-      _ => throw FormatException('Invalid subscription finality status: $value'),
+      _ =>
+        throw FormatException('Invalid subscription finality status: $value'),
     };

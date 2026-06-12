@@ -9,9 +9,8 @@ import 'txn_with_hash.dart';
 part 'confirmed_block_with_txs.freezed.dart';
 part 'confirmed_block_with_txs.g.dart';
 
-List<TxnWithHash> _txnWithHashListFromJson(List<dynamic> json) => json
-    .map((e) => TxnWithHash.fromJson(e as Map<String, dynamic>))
-    .toList();
+List<TxnWithHash> _txnWithHashListFromJson(List<dynamic> json) =>
+    json.map((e) => TxnWithHash.fromJson(e as Map<String, dynamic>)).toList();
 
 List<Map<String, dynamic>> _txnWithHashListToJson(List<TxnWithHash> value) =>
     value.map((e) => e.toJson()).toList();

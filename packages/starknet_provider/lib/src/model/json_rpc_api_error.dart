@@ -29,8 +29,7 @@ class ContractExecutionError with _$ContractExecutionError {
     @JsonKey(name: 'contract_address') required Felt contractAddress,
     @JsonKey(name: 'class_hash') required Felt classHash,
     required Felt selector,
-    @ContractExecutionErrorConverter()
-    required ContractExecutionError error,
+    @ContractExecutionErrorConverter() required ContractExecutionError error,
   }) = ContractExecutionErrorStructured;
 
   factory ContractExecutionError.parse(dynamic json) {

@@ -35,8 +35,7 @@ void main() {
       final invalidBlockId = BlockId.blockNumber(-1);
       final response = await provider.getBlockWithReceipts(invalidBlockId);
       response.when(
-        error: (error) =>
-            expect(error.code, JsonRpcApiErrorCode.INVALID_QUERY),
+        error: (error) => expect(error.code, JsonRpcApiErrorCode.INVALID_QUERY),
         block: (_) => fail('Expected INVALID_QUERY error'),
       );
     }, tags: ['integration']);

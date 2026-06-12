@@ -49,8 +49,7 @@ class NodeHashToNodeMapping {
     );
   }
 
-  List<Map<String, dynamic>> toJson() =>
-      _items.map((e) => e.toJson()).toList();
+  List<Map<String, dynamic>> toJson() => _items.map((e) => e.toJson()).toList();
 
   List<NodeHashToNodeItem> get nodeHashToNodeItems => _items;
 

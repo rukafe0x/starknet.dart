@@ -40,10 +40,10 @@ class _Blake2Felt252 {
     for (final felt in felts) {
       final feltAsBeBytes = _feltToBytesBe32(felt);
       if (felt < blakeParams.smallThreshold) {
-        final high =
-            ByteData.sublistView(feltAsBeBytes, 24, 28).getUint32(0, Endian.big);
-        final low =
-            ByteData.sublistView(feltAsBeBytes, 28, 32).getUint32(0, Endian.big);
+        final high = ByteData.sublistView(feltAsBeBytes, 24, 28)
+            .getUint32(0, Endian.big);
+        final low = ByteData.sublistView(feltAsBeBytes, 28, 32)
+            .getUint32(0, Endian.big);
         unpackedU32s
           ..add(high)
           ..add(low);

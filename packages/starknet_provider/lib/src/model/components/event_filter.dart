@@ -32,9 +32,8 @@ class EventFilter with _$EventFilter {
       fromBlock: json['from_block'] == null
           ? null
           : BlockId.fromJson(json['from_block']),
-      toBlock: json['to_block'] == null
-          ? null
-          : BlockId.fromJson(json['to_block']),
+      toBlock:
+          json['to_block'] == null ? null : BlockId.fromJson(json['to_block']),
       address: address,
       addresses: addresses,
       keys: json['keys'] == null
