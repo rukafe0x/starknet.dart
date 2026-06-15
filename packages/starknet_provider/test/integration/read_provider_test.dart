@@ -1253,7 +1253,7 @@ void main() {
             simulation_flags: []);
         final providerHost = (provider as JsonRpcReadProvider).nodeUri.host;
         if (['0.0.0.0', 'localhost', '127.0.0.1'].contains(providerHost)) {
-          print('This test is not available on localhost');
+          //This test is not available on localhost
           return true;
         }
         final response = await provider.estimateFee(estimateFeeRequest);

@@ -261,8 +261,6 @@ void main() {
           isNotNull,
           reason: 'Transaction hash should not be null',
         );
-        print('AVNU Transaction hash: ${result.transactionHash}');
-        print('Account address: ${accountAddress.toHexString()}');
         final provider = sepoliaAccount0.provider;
         await waitForAcceptance(
           transactionHash: result.transactionHash,

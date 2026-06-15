@@ -103,7 +103,6 @@ void main() {
 
       webSocketChannel.onNewHeads = (channel, response) {
         blocks.add(response);
-        //print("received response: ${response.result}");
         if (blocks.length == 2) {
           eventCompleter.complete();
         }
@@ -158,7 +157,6 @@ void main() {
 
       webSocketChannel.onEvents = (channel, response) async {
         eventCount++;
-        //print("response.result: ${response.result}");
         expect(response.result.transactionHash, isNotNull);
         if (eventCount == 5) {
           completer.complete();

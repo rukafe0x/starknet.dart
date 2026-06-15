@@ -153,8 +153,6 @@ class StarknetWebSocketChannel {
       subscription = stream.listen(
         (data) {
           final message = jsonDecode(data);
-          print('************************************************************');
-          print('message: $message');
           if (message['id'] == sendId) {
             completer.complete(message);
             subscription.cancel();
@@ -228,7 +226,6 @@ class StarknetWebSocketChannel {
       for (int i = 0; i < 3; i++) {
         try {
           final delay = Duration(milliseconds: 1000 * (1 << i)); // 1s, 2s, 4s
-          //print("Waiting ${delay.inMilliseconds}ms before retry ${i+1}...");
           await Future.delayed(delay);
           _channel = IOWebSocketChannel.connect(nodeUrl);
           _setupEventListeners();
@@ -248,7 +245,7 @@ class StarknetWebSocketChannel {
       await waitForConnection();
       _isConnected = true;
     } catch (e) {
-      print('Error during reconnect: $e');
+      //Error during reconnect
       rethrow;
     }
   }

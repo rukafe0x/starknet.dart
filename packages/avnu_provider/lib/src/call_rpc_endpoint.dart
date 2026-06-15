@@ -98,10 +98,6 @@ Future<dynamic> callRpcEndpoint(
   }
 
   final filteredBody = PythonicJsonEncoder(sortSymbol: false).convert(body);
-  print('************************************************************');
-  print('nodeUri: $nodeUri');
-  print('headers: $headers');
-  print('filteredBody: $filteredBody');
   final response = httpMethod == 'get'
       ? await http.get(nodeUri, headers: headers)
       : await http.post(nodeUri, headers: headers, body: filteredBody);
@@ -112,8 +108,6 @@ Future<dynamic> callRpcEndpoint(
     // As indicated in https://starknet.api.avnu.fi/webjars/swagger-ui/index.html
     // 429 too many requests error is the only error without a body so
     // we catch it here and return a json response with message field
-    print('************************************************************');
-    print('response.statusCode: ${response.statusCode}');
     if (response.statusCode == 429) {
       // create a json response with message field
       jsonResponse = {
