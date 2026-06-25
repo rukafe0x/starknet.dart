@@ -7,7 +7,7 @@ env:
   STARKNET_RPC: http://localhost:5050
   STARKNET_WSS: wss://api-starknet-sepolia.n.dwellir.com/9426eaad-aaf7-4367-bdae-81d1c6aa731e
   DEVNET_DUMP_PATH: /devnet-dump.json
-  AVNU_RPC: https://sepolia.api.avnu.fi
+  AVNU_RPC: https://sepolia.paymaster.avnu.fi
   STARKNET_FOUNDRY_VERSION: 0.61.0
   SNCAST_ACCOUNT: devnet
 

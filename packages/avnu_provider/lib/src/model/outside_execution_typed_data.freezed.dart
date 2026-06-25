@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'avnu_build_typed_data.dart';
+part of 'outside_execution_typed_data.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,564 +14,49 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-AvnuBuildTypedData _$AvnuBuildTypedDataFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'result':
-      return AvnuBuildTypedDataResult.fromJson(json);
-    case 'error':
-      return AvnuBuildTypedDataError.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'AvnuBuildTypedData',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
+OutsideExecutionTypeDefinition _$OutsideExecutionTypeDefinitionFromJson(
+    Map<String, dynamic> json) {
+  return _OutsideExecutionTypeDefinition.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AvnuBuildTypedData {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)
-        result,
-    required TResult Function(List<String> messages, String? revertError) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)?
-        result,
-    TResult? Function(List<String> messages, String? revertError)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)?
-        result,
-    TResult Function(List<String> messages, String? revertError)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AvnuBuildTypedDataResult value) result,
-    required TResult Function(AvnuBuildTypedDataError value) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AvnuBuildTypedDataResult value)? result,
-    TResult? Function(AvnuBuildTypedDataError value)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AvnuBuildTypedDataResult value)? result,
-    TResult Function(AvnuBuildTypedDataError value)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-
-  /// Serializes this AvnuBuildTypedData to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AvnuBuildTypedDataCopyWith<$Res> {
-  factory $AvnuBuildTypedDataCopyWith(
-          AvnuBuildTypedData value, $Res Function(AvnuBuildTypedData) then) =
-      _$AvnuBuildTypedDataCopyWithImpl<$Res, AvnuBuildTypedData>;
-}
-
-/// @nodoc
-class _$AvnuBuildTypedDataCopyWithImpl<$Res, $Val extends AvnuBuildTypedData>
-    implements $AvnuBuildTypedDataCopyWith<$Res> {
-  _$AvnuBuildTypedDataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$AvnuBuildTypedDataResultImplCopyWith<$Res> {
-  factory _$$AvnuBuildTypedDataResultImplCopyWith(
-          _$AvnuBuildTypedDataResultImpl value,
-          $Res Function(_$AvnuBuildTypedDataResultImpl) then) =
-      __$$AvnuBuildTypedDataResultImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {Map<String, List<AvnuTypeDefinition>> types,
-      String primaryType,
-      AvnuDomain domain,
-      AvnuMessage message});
-
-  $AvnuDomainCopyWith<$Res> get domain;
-  $AvnuMessageCopyWith<$Res> get message;
-}
-
-/// @nodoc
-class __$$AvnuBuildTypedDataResultImplCopyWithImpl<$Res>
-    extends _$AvnuBuildTypedDataCopyWithImpl<$Res,
-        _$AvnuBuildTypedDataResultImpl>
-    implements _$$AvnuBuildTypedDataResultImplCopyWith<$Res> {
-  __$$AvnuBuildTypedDataResultImplCopyWithImpl(
-      _$AvnuBuildTypedDataResultImpl _value,
-      $Res Function(_$AvnuBuildTypedDataResultImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? types = null,
-    Object? primaryType = null,
-    Object? domain = null,
-    Object? message = null,
-  }) {
-    return _then(_$AvnuBuildTypedDataResultImpl(
-      types: null == types
-          ? _value._types
-          : types // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<AvnuTypeDefinition>>,
-      primaryType: null == primaryType
-          ? _value.primaryType
-          : primaryType // ignore: cast_nullable_to_non_nullable
-              as String,
-      domain: null == domain
-          ? _value.domain
-          : domain // ignore: cast_nullable_to_non_nullable
-              as AvnuDomain,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as AvnuMessage,
-    ));
-  }
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AvnuDomainCopyWith<$Res> get domain {
-    return $AvnuDomainCopyWith<$Res>(_value.domain, (value) {
-      return _then(_value.copyWith(domain: value));
-    });
-  }
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AvnuMessageCopyWith<$Res> get message {
-    return $AvnuMessageCopyWith<$Res>(_value.message, (value) {
-      return _then(_value.copyWith(message: value));
-    });
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$AvnuBuildTypedDataResultImpl implements AvnuBuildTypedDataResult {
-  const _$AvnuBuildTypedDataResultImpl(
-      {required final Map<String, List<AvnuTypeDefinition>> types,
-      required this.primaryType,
-      required this.domain,
-      required this.message,
-      final String? $type})
-      : _types = types,
-        $type = $type ?? 'result';
-
-  factory _$AvnuBuildTypedDataResultImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AvnuBuildTypedDataResultImplFromJson(json);
-
-  final Map<String, List<AvnuTypeDefinition>> _types;
-  @override
-  Map<String, List<AvnuTypeDefinition>> get types {
-    if (_types is EqualUnmodifiableMapView) return _types;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_types);
-  }
-
-  @override
-  final String primaryType;
-  @override
-  final AvnuDomain domain;
-  @override
-  final AvnuMessage message;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'AvnuBuildTypedData.result(types: $types, primaryType: $primaryType, domain: $domain, message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AvnuBuildTypedDataResultImpl &&
-            const DeepCollectionEquality().equals(other._types, _types) &&
-            (identical(other.primaryType, primaryType) ||
-                other.primaryType == primaryType) &&
-            (identical(other.domain, domain) || other.domain == domain) &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_types),
-      primaryType,
-      domain,
-      message);
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AvnuBuildTypedDataResultImplCopyWith<_$AvnuBuildTypedDataResultImpl>
-      get copyWith => __$$AvnuBuildTypedDataResultImplCopyWithImpl<
-          _$AvnuBuildTypedDataResultImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)
-        result,
-    required TResult Function(List<String> messages, String? revertError) error,
-  }) {
-    return result(types, primaryType, domain, message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)?
-        result,
-    TResult? Function(List<String> messages, String? revertError)? error,
-  }) {
-    return result?.call(types, primaryType, domain, message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)?
-        result,
-    TResult Function(List<String> messages, String? revertError)? error,
-    required TResult orElse(),
-  }) {
-    if (result != null) {
-      return result(types, primaryType, domain, message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AvnuBuildTypedDataResult value) result,
-    required TResult Function(AvnuBuildTypedDataError value) error,
-  }) {
-    return result(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AvnuBuildTypedDataResult value)? result,
-    TResult? Function(AvnuBuildTypedDataError value)? error,
-  }) {
-    return result?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AvnuBuildTypedDataResult value)? result,
-    TResult Function(AvnuBuildTypedDataError value)? error,
-    required TResult orElse(),
-  }) {
-    if (result != null) {
-      return result(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AvnuBuildTypedDataResultImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class AvnuBuildTypedDataResult implements AvnuBuildTypedData {
-  const factory AvnuBuildTypedDataResult(
-      {required final Map<String, List<AvnuTypeDefinition>> types,
-      required final String primaryType,
-      required final AvnuDomain domain,
-      required final AvnuMessage message}) = _$AvnuBuildTypedDataResultImpl;
-
-  factory AvnuBuildTypedDataResult.fromJson(Map<String, dynamic> json) =
-      _$AvnuBuildTypedDataResultImpl.fromJson;
-
-  Map<String, List<AvnuTypeDefinition>> get types;
-  String get primaryType;
-  AvnuDomain get domain;
-  AvnuMessage get message;
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AvnuBuildTypedDataResultImplCopyWith<_$AvnuBuildTypedDataResultImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AvnuBuildTypedDataErrorImplCopyWith<$Res> {
-  factory _$$AvnuBuildTypedDataErrorImplCopyWith(
-          _$AvnuBuildTypedDataErrorImpl value,
-          $Res Function(_$AvnuBuildTypedDataErrorImpl) then) =
-      __$$AvnuBuildTypedDataErrorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<String> messages, String? revertError});
-}
-
-/// @nodoc
-class __$$AvnuBuildTypedDataErrorImplCopyWithImpl<$Res>
-    extends _$AvnuBuildTypedDataCopyWithImpl<$Res,
-        _$AvnuBuildTypedDataErrorImpl>
-    implements _$$AvnuBuildTypedDataErrorImplCopyWith<$Res> {
-  __$$AvnuBuildTypedDataErrorImplCopyWithImpl(
-      _$AvnuBuildTypedDataErrorImpl _value,
-      $Res Function(_$AvnuBuildTypedDataErrorImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? messages = null,
-    Object? revertError = freezed,
-  }) {
-    return _then(_$AvnuBuildTypedDataErrorImpl(
-      null == messages
-          ? _value._messages
-          : messages // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      freezed == revertError
-          ? _value.revertError
-          : revertError // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$AvnuBuildTypedDataErrorImpl implements AvnuBuildTypedDataError {
-  const _$AvnuBuildTypedDataErrorImpl(
-      final List<String> messages, this.revertError,
-      {final String? $type})
-      : _messages = messages,
-        $type = $type ?? 'error';
-
-  factory _$AvnuBuildTypedDataErrorImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AvnuBuildTypedDataErrorImplFromJson(json);
-
-  final List<String> _messages;
-  @override
-  List<String> get messages {
-    if (_messages is EqualUnmodifiableListView) return _messages;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_messages);
-  }
-
-  @override
-  final String? revertError;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'AvnuBuildTypedData.error(messages: $messages, revertError: $revertError)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AvnuBuildTypedDataErrorImpl &&
-            const DeepCollectionEquality().equals(other._messages, _messages) &&
-            (identical(other.revertError, revertError) ||
-                other.revertError == revertError));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_messages), revertError);
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AvnuBuildTypedDataErrorImplCopyWith<_$AvnuBuildTypedDataErrorImpl>
-      get copyWith => __$$AvnuBuildTypedDataErrorImplCopyWithImpl<
-          _$AvnuBuildTypedDataErrorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)
-        result,
-    required TResult Function(List<String> messages, String? revertError) error,
-  }) {
-    return error(messages, revertError);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)?
-        result,
-    TResult? Function(List<String> messages, String? revertError)? error,
-  }) {
-    return error?.call(messages, revertError);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Map<String, List<AvnuTypeDefinition>> types,
-            String primaryType, AvnuDomain domain, AvnuMessage message)?
-        result,
-    TResult Function(List<String> messages, String? revertError)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(messages, revertError);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AvnuBuildTypedDataResult value) result,
-    required TResult Function(AvnuBuildTypedDataError value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(AvnuBuildTypedDataResult value)? result,
-    TResult? Function(AvnuBuildTypedDataError value)? error,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AvnuBuildTypedDataResult value)? result,
-    TResult Function(AvnuBuildTypedDataError value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AvnuBuildTypedDataErrorImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class AvnuBuildTypedDataError implements AvnuBuildTypedData {
-  const factory AvnuBuildTypedDataError(
-          final List<String> messages, final String? revertError) =
-      _$AvnuBuildTypedDataErrorImpl;
-
-  factory AvnuBuildTypedDataError.fromJson(Map<String, dynamic> json) =
-      _$AvnuBuildTypedDataErrorImpl.fromJson;
-
-  List<String> get messages;
-  String? get revertError;
-
-  /// Create a copy of AvnuBuildTypedData
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AvnuBuildTypedDataErrorImplCopyWith<_$AvnuBuildTypedDataErrorImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-AvnuTypeDefinition _$AvnuTypeDefinitionFromJson(Map<String, dynamic> json) {
-  return _AvnuTypeDefinition.fromJson(json);
-}
-
-/// @nodoc
-mixin _$AvnuTypeDefinition {
+mixin _$OutsideExecutionTypeDefinition {
   String get name => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
 
-  /// Serializes this AvnuTypeDefinition to a JSON map.
+  /// Serializes this OutsideExecutionTypeDefinition to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of AvnuTypeDefinition
+  /// Create a copy of OutsideExecutionTypeDefinition
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AvnuTypeDefinitionCopyWith<AvnuTypeDefinition> get copyWith =>
-      throw _privateConstructorUsedError;
+  $OutsideExecutionTypeDefinitionCopyWith<OutsideExecutionTypeDefinition>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AvnuTypeDefinitionCopyWith<$Res> {
-  factory $AvnuTypeDefinitionCopyWith(
-          AvnuTypeDefinition value, $Res Function(AvnuTypeDefinition) then) =
-      _$AvnuTypeDefinitionCopyWithImpl<$Res, AvnuTypeDefinition>;
+abstract class $OutsideExecutionTypeDefinitionCopyWith<$Res> {
+  factory $OutsideExecutionTypeDefinitionCopyWith(
+          OutsideExecutionTypeDefinition value,
+          $Res Function(OutsideExecutionTypeDefinition) then) =
+      _$OutsideExecutionTypeDefinitionCopyWithImpl<$Res,
+          OutsideExecutionTypeDefinition>;
   @useResult
   $Res call({String name, String type});
 }
 
 /// @nodoc
-class _$AvnuTypeDefinitionCopyWithImpl<$Res, $Val extends AvnuTypeDefinition>
-    implements $AvnuTypeDefinitionCopyWith<$Res> {
-  _$AvnuTypeDefinitionCopyWithImpl(this._value, this._then);
+class _$OutsideExecutionTypeDefinitionCopyWithImpl<$Res,
+        $Val extends OutsideExecutionTypeDefinition>
+    implements $OutsideExecutionTypeDefinitionCopyWith<$Res> {
+  _$OutsideExecutionTypeDefinitionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AvnuTypeDefinition
+  /// Create a copy of OutsideExecutionTypeDefinition
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -593,25 +78,28 @@ class _$AvnuTypeDefinitionCopyWithImpl<$Res, $Val extends AvnuTypeDefinition>
 }
 
 /// @nodoc
-abstract class _$$AvnuTypeDefinitionImplCopyWith<$Res>
-    implements $AvnuTypeDefinitionCopyWith<$Res> {
-  factory _$$AvnuTypeDefinitionImplCopyWith(_$AvnuTypeDefinitionImpl value,
-          $Res Function(_$AvnuTypeDefinitionImpl) then) =
-      __$$AvnuTypeDefinitionImplCopyWithImpl<$Res>;
+abstract class _$$OutsideExecutionTypeDefinitionImplCopyWith<$Res>
+    implements $OutsideExecutionTypeDefinitionCopyWith<$Res> {
+  factory _$$OutsideExecutionTypeDefinitionImplCopyWith(
+          _$OutsideExecutionTypeDefinitionImpl value,
+          $Res Function(_$OutsideExecutionTypeDefinitionImpl) then) =
+      __$$OutsideExecutionTypeDefinitionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String type});
 }
 
 /// @nodoc
-class __$$AvnuTypeDefinitionImplCopyWithImpl<$Res>
-    extends _$AvnuTypeDefinitionCopyWithImpl<$Res, _$AvnuTypeDefinitionImpl>
-    implements _$$AvnuTypeDefinitionImplCopyWith<$Res> {
-  __$$AvnuTypeDefinitionImplCopyWithImpl(_$AvnuTypeDefinitionImpl _value,
-      $Res Function(_$AvnuTypeDefinitionImpl) _then)
+class __$$OutsideExecutionTypeDefinitionImplCopyWithImpl<$Res>
+    extends _$OutsideExecutionTypeDefinitionCopyWithImpl<$Res,
+        _$OutsideExecutionTypeDefinitionImpl>
+    implements _$$OutsideExecutionTypeDefinitionImplCopyWith<$Res> {
+  __$$OutsideExecutionTypeDefinitionImplCopyWithImpl(
+      _$OutsideExecutionTypeDefinitionImpl _value,
+      $Res Function(_$OutsideExecutionTypeDefinitionImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AvnuTypeDefinition
+  /// Create a copy of OutsideExecutionTypeDefinition
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -619,7 +107,7 @@ class __$$AvnuTypeDefinitionImplCopyWithImpl<$Res>
     Object? name = null,
     Object? type = null,
   }) {
-    return _then(_$AvnuTypeDefinitionImpl(
+    return _then(_$OutsideExecutionTypeDefinitionImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -634,12 +122,15 @@ class __$$AvnuTypeDefinitionImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AvnuTypeDefinitionImpl extends _AvnuTypeDefinition {
-  const _$AvnuTypeDefinitionImpl({required this.name, required this.type})
+class _$OutsideExecutionTypeDefinitionImpl
+    extends _OutsideExecutionTypeDefinition {
+  const _$OutsideExecutionTypeDefinitionImpl(
+      {required this.name, required this.type})
       : super._();
 
-  factory _$AvnuTypeDefinitionImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AvnuTypeDefinitionImplFromJson(json);
+  factory _$OutsideExecutionTypeDefinitionImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$OutsideExecutionTypeDefinitionImplFromJson(json);
 
   @override
   final String name;
@@ -648,14 +139,14 @@ class _$AvnuTypeDefinitionImpl extends _AvnuTypeDefinition {
 
   @override
   String toString() {
-    return 'AvnuTypeDefinition(name: $name, type: $type)';
+    return 'OutsideExecutionTypeDefinition(name: $name, type: $type)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AvnuTypeDefinitionImpl &&
+            other is _$OutsideExecutionTypeDefinitionImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type));
   }
@@ -664,86 +155,91 @@ class _$AvnuTypeDefinitionImpl extends _AvnuTypeDefinition {
   @override
   int get hashCode => Object.hash(runtimeType, name, type);
 
-  /// Create a copy of AvnuTypeDefinition
+  /// Create a copy of OutsideExecutionTypeDefinition
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AvnuTypeDefinitionImplCopyWith<_$AvnuTypeDefinitionImpl> get copyWith =>
-      __$$AvnuTypeDefinitionImplCopyWithImpl<_$AvnuTypeDefinitionImpl>(
-          this, _$identity);
+  _$$OutsideExecutionTypeDefinitionImplCopyWith<
+          _$OutsideExecutionTypeDefinitionImpl>
+      get copyWith => __$$OutsideExecutionTypeDefinitionImplCopyWithImpl<
+          _$OutsideExecutionTypeDefinitionImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AvnuTypeDefinitionImplToJson(
+    return _$$OutsideExecutionTypeDefinitionImplToJson(
       this,
     );
   }
 }
 
-abstract class _AvnuTypeDefinition extends AvnuTypeDefinition {
-  const factory _AvnuTypeDefinition(
+abstract class _OutsideExecutionTypeDefinition
+    extends OutsideExecutionTypeDefinition {
+  const factory _OutsideExecutionTypeDefinition(
       {required final String name,
-      required final String type}) = _$AvnuTypeDefinitionImpl;
-  const _AvnuTypeDefinition._() : super._();
+      required final String type}) = _$OutsideExecutionTypeDefinitionImpl;
+  const _OutsideExecutionTypeDefinition._() : super._();
 
-  factory _AvnuTypeDefinition.fromJson(Map<String, dynamic> json) =
-      _$AvnuTypeDefinitionImpl.fromJson;
+  factory _OutsideExecutionTypeDefinition.fromJson(Map<String, dynamic> json) =
+      _$OutsideExecutionTypeDefinitionImpl.fromJson;
 
   @override
   String get name;
   @override
   String get type;
 
-  /// Create a copy of AvnuTypeDefinition
+  /// Create a copy of OutsideExecutionTypeDefinition
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AvnuTypeDefinitionImplCopyWith<_$AvnuTypeDefinitionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$OutsideExecutionTypeDefinitionImplCopyWith<
+          _$OutsideExecutionTypeDefinitionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
-AvnuDomain _$AvnuDomainFromJson(Map<String, dynamic> json) {
-  return _AvnuDomain.fromJson(json);
+OutsideExecutionDomain _$OutsideExecutionDomainFromJson(
+    Map<String, dynamic> json) {
+  return _OutsideExecutionDomain.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AvnuDomain {
+mixin _$OutsideExecutionDomain {
   String get name => throw _privateConstructorUsedError;
   String get version => throw _privateConstructorUsedError;
   String get chainId => throw _privateConstructorUsedError;
   String? get revision => throw _privateConstructorUsedError;
 
-  /// Serializes this AvnuDomain to a JSON map.
+  /// Serializes this OutsideExecutionDomain to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of AvnuDomain
+  /// Create a copy of OutsideExecutionDomain
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AvnuDomainCopyWith<AvnuDomain> get copyWith =>
+  $OutsideExecutionDomainCopyWith<OutsideExecutionDomain> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AvnuDomainCopyWith<$Res> {
-  factory $AvnuDomainCopyWith(
-          AvnuDomain value, $Res Function(AvnuDomain) then) =
-      _$AvnuDomainCopyWithImpl<$Res, AvnuDomain>;
+abstract class $OutsideExecutionDomainCopyWith<$Res> {
+  factory $OutsideExecutionDomainCopyWith(OutsideExecutionDomain value,
+          $Res Function(OutsideExecutionDomain) then) =
+      _$OutsideExecutionDomainCopyWithImpl<$Res, OutsideExecutionDomain>;
   @useResult
   $Res call({String name, String version, String chainId, String? revision});
 }
 
 /// @nodoc
-class _$AvnuDomainCopyWithImpl<$Res, $Val extends AvnuDomain>
-    implements $AvnuDomainCopyWith<$Res> {
-  _$AvnuDomainCopyWithImpl(this._value, this._then);
+class _$OutsideExecutionDomainCopyWithImpl<$Res,
+        $Val extends OutsideExecutionDomain>
+    implements $OutsideExecutionDomainCopyWith<$Res> {
+  _$OutsideExecutionDomainCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AvnuDomain
+  /// Create a copy of OutsideExecutionDomain
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -775,25 +271,28 @@ class _$AvnuDomainCopyWithImpl<$Res, $Val extends AvnuDomain>
 }
 
 /// @nodoc
-abstract class _$$AvnuDomainImplCopyWith<$Res>
-    implements $AvnuDomainCopyWith<$Res> {
-  factory _$$AvnuDomainImplCopyWith(
-          _$AvnuDomainImpl value, $Res Function(_$AvnuDomainImpl) then) =
-      __$$AvnuDomainImplCopyWithImpl<$Res>;
+abstract class _$$OutsideExecutionDomainImplCopyWith<$Res>
+    implements $OutsideExecutionDomainCopyWith<$Res> {
+  factory _$$OutsideExecutionDomainImplCopyWith(
+          _$OutsideExecutionDomainImpl value,
+          $Res Function(_$OutsideExecutionDomainImpl) then) =
+      __$$OutsideExecutionDomainImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, String version, String chainId, String? revision});
 }
 
 /// @nodoc
-class __$$AvnuDomainImplCopyWithImpl<$Res>
-    extends _$AvnuDomainCopyWithImpl<$Res, _$AvnuDomainImpl>
-    implements _$$AvnuDomainImplCopyWith<$Res> {
-  __$$AvnuDomainImplCopyWithImpl(
-      _$AvnuDomainImpl _value, $Res Function(_$AvnuDomainImpl) _then)
+class __$$OutsideExecutionDomainImplCopyWithImpl<$Res>
+    extends _$OutsideExecutionDomainCopyWithImpl<$Res,
+        _$OutsideExecutionDomainImpl>
+    implements _$$OutsideExecutionDomainImplCopyWith<$Res> {
+  __$$OutsideExecutionDomainImplCopyWithImpl(
+      _$OutsideExecutionDomainImpl _value,
+      $Res Function(_$OutsideExecutionDomainImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AvnuDomain
+  /// Create a copy of OutsideExecutionDomain
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -803,7 +302,7 @@ class __$$AvnuDomainImplCopyWithImpl<$Res>
     Object? chainId = null,
     Object? revision = freezed,
   }) {
-    return _then(_$AvnuDomainImpl(
+    return _then(_$OutsideExecutionDomainImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -826,15 +325,15 @@ class __$$AvnuDomainImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AvnuDomainImpl implements _AvnuDomain {
-  const _$AvnuDomainImpl(
+class _$OutsideExecutionDomainImpl implements _OutsideExecutionDomain {
+  const _$OutsideExecutionDomainImpl(
       {required this.name,
       required this.version,
       required this.chainId,
       this.revision});
 
-  factory _$AvnuDomainImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AvnuDomainImplFromJson(json);
+  factory _$OutsideExecutionDomainImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OutsideExecutionDomainImplFromJson(json);
 
   @override
   final String name;
@@ -847,14 +346,14 @@ class _$AvnuDomainImpl implements _AvnuDomain {
 
   @override
   String toString() {
-    return 'AvnuDomain(name: $name, version: $version, chainId: $chainId, revision: $revision)';
+    return 'OutsideExecutionDomain(name: $name, version: $version, chainId: $chainId, revision: $revision)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AvnuDomainImpl &&
+            other is _$OutsideExecutionDomainImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.version, version) || other.version == version) &&
             (identical(other.chainId, chainId) || other.chainId == chainId) &&
@@ -867,31 +366,32 @@ class _$AvnuDomainImpl implements _AvnuDomain {
   int get hashCode =>
       Object.hash(runtimeType, name, version, chainId, revision);
 
-  /// Create a copy of AvnuDomain
+  /// Create a copy of OutsideExecutionDomain
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AvnuDomainImplCopyWith<_$AvnuDomainImpl> get copyWith =>
-      __$$AvnuDomainImplCopyWithImpl<_$AvnuDomainImpl>(this, _$identity);
+  _$$OutsideExecutionDomainImplCopyWith<_$OutsideExecutionDomainImpl>
+      get copyWith => __$$OutsideExecutionDomainImplCopyWithImpl<
+          _$OutsideExecutionDomainImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AvnuDomainImplToJson(
+    return _$$OutsideExecutionDomainImplToJson(
       this,
     );
   }
 }
 
-abstract class _AvnuDomain implements AvnuDomain {
-  const factory _AvnuDomain(
+abstract class _OutsideExecutionDomain implements OutsideExecutionDomain {
+  const factory _OutsideExecutionDomain(
       {required final String name,
       required final String version,
       required final String chainId,
-      final String? revision}) = _$AvnuDomainImpl;
+      final String? revision}) = _$OutsideExecutionDomainImpl;
 
-  factory _AvnuDomain.fromJson(Map<String, dynamic> json) =
-      _$AvnuDomainImpl.fromJson;
+  factory _OutsideExecutionDomain.fromJson(Map<String, dynamic> json) =
+      _$OutsideExecutionDomainImpl.fromJson;
 
   @override
   String get name;
@@ -902,20 +402,21 @@ abstract class _AvnuDomain implements AvnuDomain {
   @override
   String? get revision;
 
-  /// Create a copy of AvnuDomain
+  /// Create a copy of OutsideExecutionDomain
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AvnuDomainImplCopyWith<_$AvnuDomainImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$OutsideExecutionDomainImplCopyWith<_$OutsideExecutionDomainImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
-AvnuMessage _$AvnuMessageFromJson(Map<String, dynamic> json) {
-  return _AvnuMessage.fromJson(json);
+OutsideExecutionMessage _$OutsideExecutionMessageFromJson(
+    Map<String, dynamic> json) {
+  return _OutsideExecutionMessage.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AvnuMessage {
+mixin _$OutsideExecutionMessage {
   @JsonKey(name: 'caller')
   String? get callerv1 => throw _privateConstructorUsedError;
   @JsonKey(name: 'Caller')
@@ -933,28 +434,27 @@ mixin _$AvnuMessage {
   @JsonKey(name: 'Execute Before')
   String? get executeBeforev2 => throw _privateConstructorUsedError;
   @JsonKey(name: 'calls_len')
-  int? get callsLen =>
-      throw _privateConstructorUsedError; // process calls or Calls in json response
+  int? get callsLen => throw _privateConstructorUsedError;
   @JsonKey(name: 'calls')
-  List<AvnuCall>? get calls => throw _privateConstructorUsedError;
+  List<OutsideExecutionCall>? get calls => throw _privateConstructorUsedError;
   @JsonKey(name: 'Calls')
-  List<AvnuCall>? get callsv2 => throw _privateConstructorUsedError;
+  List<OutsideExecutionCall>? get callsv2 => throw _privateConstructorUsedError;
 
-  /// Serializes this AvnuMessage to a JSON map.
+  /// Serializes this OutsideExecutionMessage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of AvnuMessage
+  /// Create a copy of OutsideExecutionMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AvnuMessageCopyWith<AvnuMessage> get copyWith =>
+  $OutsideExecutionMessageCopyWith<OutsideExecutionMessage> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AvnuMessageCopyWith<$Res> {
-  factory $AvnuMessageCopyWith(
-          AvnuMessage value, $Res Function(AvnuMessage) then) =
-      _$AvnuMessageCopyWithImpl<$Res, AvnuMessage>;
+abstract class $OutsideExecutionMessageCopyWith<$Res> {
+  factory $OutsideExecutionMessageCopyWith(OutsideExecutionMessage value,
+          $Res Function(OutsideExecutionMessage) then) =
+      _$OutsideExecutionMessageCopyWithImpl<$Res, OutsideExecutionMessage>;
   @useResult
   $Res call(
       {@JsonKey(name: 'caller') String? callerv1,
@@ -966,21 +466,22 @@ abstract class $AvnuMessageCopyWith<$Res> {
       @JsonKey(name: 'execute_before') String? executeBeforev1,
       @JsonKey(name: 'Execute Before') String? executeBeforev2,
       @JsonKey(name: 'calls_len') int? callsLen,
-      @JsonKey(name: 'calls') List<AvnuCall>? calls,
-      @JsonKey(name: 'Calls') List<AvnuCall>? callsv2});
+      @JsonKey(name: 'calls') List<OutsideExecutionCall>? calls,
+      @JsonKey(name: 'Calls') List<OutsideExecutionCall>? callsv2});
 }
 
 /// @nodoc
-class _$AvnuMessageCopyWithImpl<$Res, $Val extends AvnuMessage>
-    implements $AvnuMessageCopyWith<$Res> {
-  _$AvnuMessageCopyWithImpl(this._value, this._then);
+class _$OutsideExecutionMessageCopyWithImpl<$Res,
+        $Val extends OutsideExecutionMessage>
+    implements $OutsideExecutionMessageCopyWith<$Res> {
+  _$OutsideExecutionMessageCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AvnuMessage
+  /// Create a copy of OutsideExecutionMessage
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -1037,21 +538,22 @@ class _$AvnuMessageCopyWithImpl<$Res, $Val extends AvnuMessage>
       calls: freezed == calls
           ? _value.calls
           : calls // ignore: cast_nullable_to_non_nullable
-              as List<AvnuCall>?,
+              as List<OutsideExecutionCall>?,
       callsv2: freezed == callsv2
           ? _value.callsv2
           : callsv2 // ignore: cast_nullable_to_non_nullable
-              as List<AvnuCall>?,
+              as List<OutsideExecutionCall>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$AvnuMessageImplCopyWith<$Res>
-    implements $AvnuMessageCopyWith<$Res> {
-  factory _$$AvnuMessageImplCopyWith(
-          _$AvnuMessageImpl value, $Res Function(_$AvnuMessageImpl) then) =
-      __$$AvnuMessageImplCopyWithImpl<$Res>;
+abstract class _$$OutsideExecutionMessageImplCopyWith<$Res>
+    implements $OutsideExecutionMessageCopyWith<$Res> {
+  factory _$$OutsideExecutionMessageImplCopyWith(
+          _$OutsideExecutionMessageImpl value,
+          $Res Function(_$OutsideExecutionMessageImpl) then) =
+      __$$OutsideExecutionMessageImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1064,19 +566,21 @@ abstract class _$$AvnuMessageImplCopyWith<$Res>
       @JsonKey(name: 'execute_before') String? executeBeforev1,
       @JsonKey(name: 'Execute Before') String? executeBeforev2,
       @JsonKey(name: 'calls_len') int? callsLen,
-      @JsonKey(name: 'calls') List<AvnuCall>? calls,
-      @JsonKey(name: 'Calls') List<AvnuCall>? callsv2});
+      @JsonKey(name: 'calls') List<OutsideExecutionCall>? calls,
+      @JsonKey(name: 'Calls') List<OutsideExecutionCall>? callsv2});
 }
 
 /// @nodoc
-class __$$AvnuMessageImplCopyWithImpl<$Res>
-    extends _$AvnuMessageCopyWithImpl<$Res, _$AvnuMessageImpl>
-    implements _$$AvnuMessageImplCopyWith<$Res> {
-  __$$AvnuMessageImplCopyWithImpl(
-      _$AvnuMessageImpl _value, $Res Function(_$AvnuMessageImpl) _then)
+class __$$OutsideExecutionMessageImplCopyWithImpl<$Res>
+    extends _$OutsideExecutionMessageCopyWithImpl<$Res,
+        _$OutsideExecutionMessageImpl>
+    implements _$$OutsideExecutionMessageImplCopyWith<$Res> {
+  __$$OutsideExecutionMessageImplCopyWithImpl(
+      _$OutsideExecutionMessageImpl _value,
+      $Res Function(_$OutsideExecutionMessageImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AvnuMessage
+  /// Create a copy of OutsideExecutionMessage
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -1093,7 +597,7 @@ class __$$AvnuMessageImplCopyWithImpl<$Res>
     Object? calls = freezed,
     Object? callsv2 = freezed,
   }) {
-    return _then(_$AvnuMessageImpl(
+    return _then(_$OutsideExecutionMessageImpl(
       callerv1: freezed == callerv1
           ? _value.callerv1
           : callerv1 // ignore: cast_nullable_to_non_nullable
@@ -1133,19 +637,19 @@ class __$$AvnuMessageImplCopyWithImpl<$Res>
       calls: freezed == calls
           ? _value._calls
           : calls // ignore: cast_nullable_to_non_nullable
-              as List<AvnuCall>?,
+              as List<OutsideExecutionCall>?,
       callsv2: freezed == callsv2
           ? _value._callsv2
           : callsv2 // ignore: cast_nullable_to_non_nullable
-              as List<AvnuCall>?,
+              as List<OutsideExecutionCall>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AvnuMessageImpl implements _AvnuMessage {
-  const _$AvnuMessageImpl(
+class _$OutsideExecutionMessageImpl implements _OutsideExecutionMessage {
+  const _$OutsideExecutionMessageImpl(
       {@JsonKey(name: 'caller') this.callerv1,
       @JsonKey(name: 'Caller') this.callerv2,
       @JsonKey(name: 'nonce') this.noncev1,
@@ -1155,13 +659,13 @@ class _$AvnuMessageImpl implements _AvnuMessage {
       @JsonKey(name: 'execute_before') this.executeBeforev1,
       @JsonKey(name: 'Execute Before') this.executeBeforev2,
       @JsonKey(name: 'calls_len') this.callsLen,
-      @JsonKey(name: 'calls') final List<AvnuCall>? calls,
-      @JsonKey(name: 'Calls') final List<AvnuCall>? callsv2})
+      @JsonKey(name: 'calls') final List<OutsideExecutionCall>? calls,
+      @JsonKey(name: 'Calls') final List<OutsideExecutionCall>? callsv2})
       : _calls = calls,
         _callsv2 = callsv2;
 
-  factory _$AvnuMessageImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AvnuMessageImplFromJson(json);
+  factory _$OutsideExecutionMessageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OutsideExecutionMessageImplFromJson(json);
 
   @override
   @JsonKey(name: 'caller')
@@ -1190,12 +694,10 @@ class _$AvnuMessageImpl implements _AvnuMessage {
   @override
   @JsonKey(name: 'calls_len')
   final int? callsLen;
-// process calls or Calls in json response
-  final List<AvnuCall>? _calls;
-// process calls or Calls in json response
+  final List<OutsideExecutionCall>? _calls;
   @override
   @JsonKey(name: 'calls')
-  List<AvnuCall>? get calls {
+  List<OutsideExecutionCall>? get calls {
     final value = _calls;
     if (value == null) return null;
     if (_calls is EqualUnmodifiableListView) return _calls;
@@ -1203,10 +705,10 @@ class _$AvnuMessageImpl implements _AvnuMessage {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<AvnuCall>? _callsv2;
+  final List<OutsideExecutionCall>? _callsv2;
   @override
   @JsonKey(name: 'Calls')
-  List<AvnuCall>? get callsv2 {
+  List<OutsideExecutionCall>? get callsv2 {
     final value = _callsv2;
     if (value == null) return null;
     if (_callsv2 is EqualUnmodifiableListView) return _callsv2;
@@ -1216,14 +718,14 @@ class _$AvnuMessageImpl implements _AvnuMessage {
 
   @override
   String toString() {
-    return 'AvnuMessage(callerv1: $callerv1, callerv2: $callerv2, noncev1: $noncev1, noncev2: $noncev2, executeAfterv1: $executeAfterv1, executeAfterv2: $executeAfterv2, executeBeforev1: $executeBeforev1, executeBeforev2: $executeBeforev2, callsLen: $callsLen, calls: $calls, callsv2: $callsv2)';
+    return 'OutsideExecutionMessage(callerv1: $callerv1, callerv2: $callerv2, noncev1: $noncev1, noncev2: $noncev2, executeAfterv1: $executeAfterv1, executeAfterv2: $executeAfterv2, executeBeforev1: $executeBeforev1, executeBeforev2: $executeBeforev2, callsLen: $callsLen, calls: $calls, callsv2: $callsv2)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AvnuMessageImpl &&
+            other is _$OutsideExecutionMessageImpl &&
             (identical(other.callerv1, callerv1) ||
                 other.callerv1 == callerv1) &&
             (identical(other.callerv2, callerv2) ||
@@ -1260,24 +762,25 @@ class _$AvnuMessageImpl implements _AvnuMessage {
       const DeepCollectionEquality().hash(_calls),
       const DeepCollectionEquality().hash(_callsv2));
 
-  /// Create a copy of AvnuMessage
+  /// Create a copy of OutsideExecutionMessage
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AvnuMessageImplCopyWith<_$AvnuMessageImpl> get copyWith =>
-      __$$AvnuMessageImplCopyWithImpl<_$AvnuMessageImpl>(this, _$identity);
+  _$$OutsideExecutionMessageImplCopyWith<_$OutsideExecutionMessageImpl>
+      get copyWith => __$$OutsideExecutionMessageImplCopyWithImpl<
+          _$OutsideExecutionMessageImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AvnuMessageImplToJson(
+    return _$$OutsideExecutionMessageImplToJson(
       this,
     );
   }
 }
 
-abstract class _AvnuMessage implements AvnuMessage {
-  const factory _AvnuMessage(
+abstract class _OutsideExecutionMessage implements OutsideExecutionMessage {
+  const factory _OutsideExecutionMessage(
           {@JsonKey(name: 'caller') final String? callerv1,
           @JsonKey(name: 'Caller') final String? callerv2,
           @JsonKey(name: 'nonce') final String? noncev1,
@@ -1287,12 +790,12 @@ abstract class _AvnuMessage implements AvnuMessage {
           @JsonKey(name: 'execute_before') final String? executeBeforev1,
           @JsonKey(name: 'Execute Before') final String? executeBeforev2,
           @JsonKey(name: 'calls_len') final int? callsLen,
-          @JsonKey(name: 'calls') final List<AvnuCall>? calls,
-          @JsonKey(name: 'Calls') final List<AvnuCall>? callsv2}) =
-      _$AvnuMessageImpl;
+          @JsonKey(name: 'calls') final List<OutsideExecutionCall>? calls,
+          @JsonKey(name: 'Calls') final List<OutsideExecutionCall>? callsv2}) =
+      _$OutsideExecutionMessageImpl;
 
-  factory _AvnuMessage.fromJson(Map<String, dynamic> json) =
-      _$AvnuMessageImpl.fromJson;
+  factory _OutsideExecutionMessage.fromJson(Map<String, dynamic> json) =
+      _$OutsideExecutionMessageImpl.fromJson;
 
   @override
   @JsonKey(name: 'caller')
@@ -1320,28 +823,28 @@ abstract class _AvnuMessage implements AvnuMessage {
   String? get executeBeforev2;
   @override
   @JsonKey(name: 'calls_len')
-  int? get callsLen; // process calls or Calls in json response
+  int? get callsLen;
   @override
   @JsonKey(name: 'calls')
-  List<AvnuCall>? get calls;
+  List<OutsideExecutionCall>? get calls;
   @override
   @JsonKey(name: 'Calls')
-  List<AvnuCall>? get callsv2;
+  List<OutsideExecutionCall>? get callsv2;
 
-  /// Create a copy of AvnuMessage
+  /// Create a copy of OutsideExecutionMessage
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AvnuMessageImplCopyWith<_$AvnuMessageImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$OutsideExecutionMessageImplCopyWith<_$OutsideExecutionMessageImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
-AvnuCall _$AvnuCallFromJson(Map<String, dynamic> json) {
-  return _AvnuCall.fromJson(json);
+OutsideExecutionCall _$OutsideExecutionCallFromJson(Map<String, dynamic> json) {
+  return _OutsideExecutionCall.fromJson(json);
 }
 
 /// @nodoc
-mixin _$AvnuCall {
+mixin _$OutsideExecutionCall {
   @JsonKey(name: 'to')
   String? get tov1 => throw _privateConstructorUsedError;
   @JsonKey(name: 'To')
@@ -1357,20 +860,21 @@ mixin _$AvnuCall {
   @JsonKey(name: 'Calldata')
   List<String>? get calldatav2 => throw _privateConstructorUsedError;
 
-  /// Serializes this AvnuCall to a JSON map.
+  /// Serializes this OutsideExecutionCall to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of AvnuCall
+  /// Create a copy of OutsideExecutionCall
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AvnuCallCopyWith<AvnuCall> get copyWith =>
+  $OutsideExecutionCallCopyWith<OutsideExecutionCall> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AvnuCallCopyWith<$Res> {
-  factory $AvnuCallCopyWith(AvnuCall value, $Res Function(AvnuCall) then) =
-      _$AvnuCallCopyWithImpl<$Res, AvnuCall>;
+abstract class $OutsideExecutionCallCopyWith<$Res> {
+  factory $OutsideExecutionCallCopyWith(OutsideExecutionCall value,
+          $Res Function(OutsideExecutionCall) then) =
+      _$OutsideExecutionCallCopyWithImpl<$Res, OutsideExecutionCall>;
   @useResult
   $Res call(
       {@JsonKey(name: 'to') String? tov1,
@@ -1383,16 +887,17 @@ abstract class $AvnuCallCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AvnuCallCopyWithImpl<$Res, $Val extends AvnuCall>
-    implements $AvnuCallCopyWith<$Res> {
-  _$AvnuCallCopyWithImpl(this._value, this._then);
+class _$OutsideExecutionCallCopyWithImpl<$Res,
+        $Val extends OutsideExecutionCall>
+    implements $OutsideExecutionCallCopyWith<$Res> {
+  _$OutsideExecutionCallCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AvnuCall
+  /// Create a copy of OutsideExecutionCall
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -1439,11 +944,11 @@ class _$AvnuCallCopyWithImpl<$Res, $Val extends AvnuCall>
 }
 
 /// @nodoc
-abstract class _$$AvnuCallImplCopyWith<$Res>
-    implements $AvnuCallCopyWith<$Res> {
-  factory _$$AvnuCallImplCopyWith(
-          _$AvnuCallImpl value, $Res Function(_$AvnuCallImpl) then) =
-      __$$AvnuCallImplCopyWithImpl<$Res>;
+abstract class _$$OutsideExecutionCallImplCopyWith<$Res>
+    implements $OutsideExecutionCallCopyWith<$Res> {
+  factory _$$OutsideExecutionCallImplCopyWith(_$OutsideExecutionCallImpl value,
+          $Res Function(_$OutsideExecutionCallImpl) then) =
+      __$$OutsideExecutionCallImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1457,14 +962,14 @@ abstract class _$$AvnuCallImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AvnuCallImplCopyWithImpl<$Res>
-    extends _$AvnuCallCopyWithImpl<$Res, _$AvnuCallImpl>
-    implements _$$AvnuCallImplCopyWith<$Res> {
-  __$$AvnuCallImplCopyWithImpl(
-      _$AvnuCallImpl _value, $Res Function(_$AvnuCallImpl) _then)
+class __$$OutsideExecutionCallImplCopyWithImpl<$Res>
+    extends _$OutsideExecutionCallCopyWithImpl<$Res, _$OutsideExecutionCallImpl>
+    implements _$$OutsideExecutionCallImplCopyWith<$Res> {
+  __$$OutsideExecutionCallImplCopyWithImpl(_$OutsideExecutionCallImpl _value,
+      $Res Function(_$OutsideExecutionCallImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AvnuCall
+  /// Create a copy of OutsideExecutionCall
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -1477,7 +982,7 @@ class __$$AvnuCallImplCopyWithImpl<$Res>
     Object? calldatav1 = freezed,
     Object? calldatav2 = freezed,
   }) {
-    return _then(_$AvnuCallImpl(
+    return _then(_$OutsideExecutionCallImpl(
       tov1: freezed == tov1
           ? _value.tov1
           : tov1 // ignore: cast_nullable_to_non_nullable
@@ -1512,8 +1017,8 @@ class __$$AvnuCallImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AvnuCallImpl implements _AvnuCall {
-  const _$AvnuCallImpl(
+class _$OutsideExecutionCallImpl implements _OutsideExecutionCall {
+  const _$OutsideExecutionCallImpl(
       {@JsonKey(name: 'to') this.tov1,
       @JsonKey(name: 'To') this.tov2,
       @JsonKey(name: 'selector') this.selectorv1,
@@ -1524,8 +1029,8 @@ class _$AvnuCallImpl implements _AvnuCall {
       : _calldatav1 = calldatav1,
         _calldatav2 = calldatav2;
 
-  factory _$AvnuCallImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AvnuCallImplFromJson(json);
+  factory _$OutsideExecutionCallImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OutsideExecutionCallImplFromJson(json);
 
   @override
   @JsonKey(name: 'to')
@@ -1566,14 +1071,14 @@ class _$AvnuCallImpl implements _AvnuCall {
 
   @override
   String toString() {
-    return 'AvnuCall(tov1: $tov1, tov2: $tov2, selectorv1: $selectorv1, selectorv2: $selectorv2, calldataLen: $calldataLen, calldatav1: $calldatav1, calldatav2: $calldatav2)';
+    return 'OutsideExecutionCall(tov1: $tov1, tov2: $tov2, selectorv1: $selectorv1, selectorv2: $selectorv2, calldataLen: $calldataLen, calldatav1: $calldatav1, calldatav2: $calldatav2)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AvnuCallImpl &&
+            other is _$OutsideExecutionCallImpl &&
             (identical(other.tov1, tov1) || other.tov1 == tov1) &&
             (identical(other.tov2, tov2) || other.tov2 == tov2) &&
             (identical(other.selectorv1, selectorv1) ||
@@ -1600,24 +1105,26 @@ class _$AvnuCallImpl implements _AvnuCall {
       const DeepCollectionEquality().hash(_calldatav1),
       const DeepCollectionEquality().hash(_calldatav2));
 
-  /// Create a copy of AvnuCall
+  /// Create a copy of OutsideExecutionCall
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AvnuCallImplCopyWith<_$AvnuCallImpl> get copyWith =>
-      __$$AvnuCallImplCopyWithImpl<_$AvnuCallImpl>(this, _$identity);
+  _$$OutsideExecutionCallImplCopyWith<_$OutsideExecutionCallImpl>
+      get copyWith =>
+          __$$OutsideExecutionCallImplCopyWithImpl<_$OutsideExecutionCallImpl>(
+              this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AvnuCallImplToJson(
+    return _$$OutsideExecutionCallImplToJson(
       this,
     );
   }
 }
 
-abstract class _AvnuCall implements AvnuCall {
-  const factory _AvnuCall(
+abstract class _OutsideExecutionCall implements OutsideExecutionCall {
+  const factory _OutsideExecutionCall(
           {@JsonKey(name: 'to') final String? tov1,
           @JsonKey(name: 'To') final String? tov2,
           @JsonKey(name: 'selector') final String? selectorv1,
@@ -1625,10 +1132,10 @@ abstract class _AvnuCall implements AvnuCall {
           @JsonKey(name: 'calldata_len') final int? calldataLen,
           @JsonKey(name: 'calldata') final List<String>? calldatav1,
           @JsonKey(name: 'Calldata') final List<String>? calldatav2}) =
-      _$AvnuCallImpl;
+      _$OutsideExecutionCallImpl;
 
-  factory _AvnuCall.fromJson(Map<String, dynamic> json) =
-      _$AvnuCallImpl.fromJson;
+  factory _OutsideExecutionCall.fromJson(Map<String, dynamic> json) =
+      _$OutsideExecutionCallImpl.fromJson;
 
   @override
   @JsonKey(name: 'to')
@@ -1652,10 +1159,272 @@ abstract class _AvnuCall implements AvnuCall {
   @JsonKey(name: 'Calldata')
   List<String>? get calldatav2;
 
-  /// Create a copy of AvnuCall
+  /// Create a copy of OutsideExecutionCall
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AvnuCallImplCopyWith<_$AvnuCallImpl> get copyWith =>
+  _$$OutsideExecutionCallImplCopyWith<_$OutsideExecutionCallImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+OutsideExecutionTypedData _$OutsideExecutionTypedDataFromJson(
+    Map<String, dynamic> json) {
+  return _OutsideExecutionTypedData.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OutsideExecutionTypedData {
+  Map<String, List<OutsideExecutionTypeDefinition>> get types =>
       throw _privateConstructorUsedError;
+  String get primaryType => throw _privateConstructorUsedError;
+  OutsideExecutionDomain get domain => throw _privateConstructorUsedError;
+  OutsideExecutionMessage get message => throw _privateConstructorUsedError;
+
+  /// Serializes this OutsideExecutionTypedData to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of OutsideExecutionTypedData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $OutsideExecutionTypedDataCopyWith<OutsideExecutionTypedData> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OutsideExecutionTypedDataCopyWith<$Res> {
+  factory $OutsideExecutionTypedDataCopyWith(OutsideExecutionTypedData value,
+          $Res Function(OutsideExecutionTypedData) then) =
+      _$OutsideExecutionTypedDataCopyWithImpl<$Res, OutsideExecutionTypedData>;
+  @useResult
+  $Res call(
+      {Map<String, List<OutsideExecutionTypeDefinition>> types,
+      String primaryType,
+      OutsideExecutionDomain domain,
+      OutsideExecutionMessage message});
+
+  $OutsideExecutionDomainCopyWith<$Res> get domain;
+  $OutsideExecutionMessageCopyWith<$Res> get message;
+}
+
+/// @nodoc
+class _$OutsideExecutionTypedDataCopyWithImpl<$Res,
+        $Val extends OutsideExecutionTypedData>
+    implements $OutsideExecutionTypedDataCopyWith<$Res> {
+  _$OutsideExecutionTypedDataCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of OutsideExecutionTypedData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? types = null,
+    Object? primaryType = null,
+    Object? domain = null,
+    Object? message = null,
+  }) {
+    return _then(_value.copyWith(
+      types: null == types
+          ? _value.types
+          : types // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<OutsideExecutionTypeDefinition>>,
+      primaryType: null == primaryType
+          ? _value.primaryType
+          : primaryType // ignore: cast_nullable_to_non_nullable
+              as String,
+      domain: null == domain
+          ? _value.domain
+          : domain // ignore: cast_nullable_to_non_nullable
+              as OutsideExecutionDomain,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as OutsideExecutionMessage,
+    ) as $Val);
+  }
+
+  /// Create a copy of OutsideExecutionTypedData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $OutsideExecutionDomainCopyWith<$Res> get domain {
+    return $OutsideExecutionDomainCopyWith<$Res>(_value.domain, (value) {
+      return _then(_value.copyWith(domain: value) as $Val);
+    });
+  }
+
+  /// Create a copy of OutsideExecutionTypedData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $OutsideExecutionMessageCopyWith<$Res> get message {
+    return $OutsideExecutionMessageCopyWith<$Res>(_value.message, (value) {
+      return _then(_value.copyWith(message: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$OutsideExecutionTypedDataImplCopyWith<$Res>
+    implements $OutsideExecutionTypedDataCopyWith<$Res> {
+  factory _$$OutsideExecutionTypedDataImplCopyWith(
+          _$OutsideExecutionTypedDataImpl value,
+          $Res Function(_$OutsideExecutionTypedDataImpl) then) =
+      __$$OutsideExecutionTypedDataImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {Map<String, List<OutsideExecutionTypeDefinition>> types,
+      String primaryType,
+      OutsideExecutionDomain domain,
+      OutsideExecutionMessage message});
+
+  @override
+  $OutsideExecutionDomainCopyWith<$Res> get domain;
+  @override
+  $OutsideExecutionMessageCopyWith<$Res> get message;
+}
+
+/// @nodoc
+class __$$OutsideExecutionTypedDataImplCopyWithImpl<$Res>
+    extends _$OutsideExecutionTypedDataCopyWithImpl<$Res,
+        _$OutsideExecutionTypedDataImpl>
+    implements _$$OutsideExecutionTypedDataImplCopyWith<$Res> {
+  __$$OutsideExecutionTypedDataImplCopyWithImpl(
+      _$OutsideExecutionTypedDataImpl _value,
+      $Res Function(_$OutsideExecutionTypedDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of OutsideExecutionTypedData
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? types = null,
+    Object? primaryType = null,
+    Object? domain = null,
+    Object? message = null,
+  }) {
+    return _then(_$OutsideExecutionTypedDataImpl(
+      types: null == types
+          ? _value._types
+          : types // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<OutsideExecutionTypeDefinition>>,
+      primaryType: null == primaryType
+          ? _value.primaryType
+          : primaryType // ignore: cast_nullable_to_non_nullable
+              as String,
+      domain: null == domain
+          ? _value.domain
+          : domain // ignore: cast_nullable_to_non_nullable
+              as OutsideExecutionDomain,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as OutsideExecutionMessage,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OutsideExecutionTypedDataImpl implements _OutsideExecutionTypedData {
+  const _$OutsideExecutionTypedDataImpl(
+      {required final Map<String, List<OutsideExecutionTypeDefinition>> types,
+      required this.primaryType,
+      required this.domain,
+      required this.message})
+      : _types = types;
+
+  factory _$OutsideExecutionTypedDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OutsideExecutionTypedDataImplFromJson(json);
+
+  final Map<String, List<OutsideExecutionTypeDefinition>> _types;
+  @override
+  Map<String, List<OutsideExecutionTypeDefinition>> get types {
+    if (_types is EqualUnmodifiableMapView) return _types;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_types);
+  }
+
+  @override
+  final String primaryType;
+  @override
+  final OutsideExecutionDomain domain;
+  @override
+  final OutsideExecutionMessage message;
+
+  @override
+  String toString() {
+    return 'OutsideExecutionTypedData(types: $types, primaryType: $primaryType, domain: $domain, message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OutsideExecutionTypedDataImpl &&
+            const DeepCollectionEquality().equals(other._types, _types) &&
+            (identical(other.primaryType, primaryType) ||
+                other.primaryType == primaryType) &&
+            (identical(other.domain, domain) || other.domain == domain) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_types),
+      primaryType,
+      domain,
+      message);
+
+  /// Create a copy of OutsideExecutionTypedData
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OutsideExecutionTypedDataImplCopyWith<_$OutsideExecutionTypedDataImpl>
+      get copyWith => __$$OutsideExecutionTypedDataImplCopyWithImpl<
+          _$OutsideExecutionTypedDataImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OutsideExecutionTypedDataImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OutsideExecutionTypedData implements OutsideExecutionTypedData {
+  const factory _OutsideExecutionTypedData(
+      {required final Map<String, List<OutsideExecutionTypeDefinition>> types,
+      required final String primaryType,
+      required final OutsideExecutionDomain domain,
+      required final OutsideExecutionMessage
+          message}) = _$OutsideExecutionTypedDataImpl;
+
+  factory _OutsideExecutionTypedData.fromJson(Map<String, dynamic> json) =
+      _$OutsideExecutionTypedDataImpl.fromJson;
+
+  @override
+  Map<String, List<OutsideExecutionTypeDefinition>> get types;
+  @override
+  String get primaryType;
+  @override
+  OutsideExecutionDomain get domain;
+  @override
+  OutsideExecutionMessage get message;
+
+  /// Create a copy of OutsideExecutionTypedData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OutsideExecutionTypedDataImplCopyWith<_$OutsideExecutionTypedDataImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
