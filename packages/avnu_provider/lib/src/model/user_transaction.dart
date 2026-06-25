@@ -150,7 +150,8 @@ class ExecutableUserTransaction {
             json['invoke'] as Map<String, dynamic>,
           ),
         ),
-      _ => throw ArgumentError('Unsupported executable transaction type: $type'),
+      _ =>
+        throw ArgumentError('Unsupported executable transaction type: $type'),
     };
   }
 }

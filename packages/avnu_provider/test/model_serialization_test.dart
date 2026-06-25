@@ -10,8 +10,7 @@ void main() {
               '0x00f1ac9e93a5da15fdefd80f6224877fb9977fa09c5dfccb0024a6654c111224',
           calls: [
             PaymasterCall.fromEntrypoint(
-              to:
-                  '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+              to: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
               entrypoint: 'approve',
               calldata: [
                 '0x498e484da80a8895c77dcad5362ae483758050f22a92af29a385459b0365bfe',
@@ -65,8 +64,8 @@ void main() {
     });
 
     test('PaymasterRpcException error codes', () {
-      expect(PaymasterErrorCode.fromCode(150),
-          PaymasterErrorCode.invalidAddress);
+      expect(
+          PaymasterErrorCode.fromCode(150), PaymasterErrorCode.invalidAddress);
       expect(PaymasterErrorCode.fromCode(153),
           PaymasterErrorCode.invalidSignature);
       expect(PaymasterErrorCode.fromCode(999), isNull);

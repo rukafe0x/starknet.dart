@@ -25,8 +25,7 @@ void main() {
   group('AvnuPaymasterProvider unit', () {
     test('PaymasterCall.fromEntrypoint uses canonical selector hex', () {
       final call = PaymasterCall.fromEntrypoint(
-        to:
-            '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+        to: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
         entrypoint: 'approve',
         calldata: ['0x1'],
       );
@@ -152,7 +151,8 @@ void main() {
       );
     });
 
-    test('build and execute sponsored invoke when simulation succeeds', () async {
+    test('build and execute sponsored invoke when simulation succeeds',
+        () async {
       final transaction = UserTransaction.invoke(
         invoke: UserInvoke(
           userAddress: sepoliaAccount0.accountAddress.toHexString(),
@@ -206,7 +206,8 @@ void main() {
       expect(result.trackingId, startsWith('0x'));
     });
 
-    test('build and execute gas-token invoke when simulation succeeds', () async {
+    test('build and execute gas-token invoke when simulation succeeds',
+        () async {
       final transaction = UserTransaction.invoke(
         invoke: UserInvoke(
           userAddress: sepoliaAccount0.accountAddress.toHexString(),

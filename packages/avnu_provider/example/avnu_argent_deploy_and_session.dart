@@ -71,7 +71,8 @@ Future<void> main() async {
   );
 
   final guardianSigner = StarkSigner(
-    privateKey: Felt.fromHexString(Platform.environment['GUARDIAN_PRIVATE_KEY']!),
+    privateKey:
+        Felt.fromHexString(Platform.environment['GUARDIAN_PRIVATE_KEY']!),
   );
   final ownerSigner = StarkSigner(
     privateKey: Felt.fromHexString(Platform.environment['OWNER_PRIVATE_KEY']!),
@@ -154,8 +155,8 @@ Future<void> main() async {
         )
         .toList(),
     metadata: '2342',
-    expiresAt: (DateTime.now().millisecondsSinceEpoch / 1000).floor() +
-        60 * 60 * 24,
+    expiresAt:
+        (DateTime.now().millisecondsSinceEpoch / 1000).floor() + 60 * 60 * 24,
     chainId: Felt.fromHexString(chainId),
     appSigner: appSigner,
   );
@@ -204,7 +205,8 @@ Future<void> main() async {
     print('DEPLOYING ACCOUNT');
   }
 
-  final result = await paymaster.executeTransaction(executable, build.parameters);
+  final result =
+      await paymaster.executeTransaction(executable, build.parameters);
   print(result);
 
   await waitForAcceptance(

@@ -83,7 +83,8 @@ Future<void> main() async {
     parameters,
   );
 
-  if (build.type != PaymasterBuildResponseType.invoke || build.typedData == null) {
+  if (build.type != PaymasterBuildResponseType.invoke ||
+      build.typedData == null) {
     print('Unexpected build response: $build');
     return;
   }
